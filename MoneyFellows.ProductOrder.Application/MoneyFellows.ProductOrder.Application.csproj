@@ -1,0 +1,14 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <ItemGroup>
+    <ProjectReference Include="..\MoneyFellows.ProductOrder.Core\MoneyFellows.ProductOrder.Core.csproj" />
+    <ProjectReference Include="..\MoneyFellows.ProductOrder.Infrastructure\MoneyFellows.ProductOrder.Infrastructure.csproj" />
+  </ItemGroup>
+
+  <PropertyGroup>
+    <TargetFramework>net8.0</TargetFramework>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <Nullable>enable</Nullable>
+  </PropertyGroup>
+
+</Project>
