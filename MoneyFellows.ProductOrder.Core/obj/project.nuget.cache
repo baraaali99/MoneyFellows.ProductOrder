@@ -1,8 +1,8 @@
 {
   "version": 2,
-  "dgSpecHash": "Dl9t4ZQ5hpzjbpPq3KrqcD1kJ3vNmY8q5LZoGgwek4GIbxiF+z/qM1ovUDzSqSq4FAKQTdmxeHZZcn/VO5qOUQ==",
+  "dgSpecHash": "cqPh1WSuMP8+HM1WvK/LNP5NgEAkZPL5uOYizPj2vj/kXocHB9Xxu2ugqx4a5PEVbRhMEDPrS/zuxlkyAePpbw==",
   "success": true,
-  "projectFilePath": "D:\\MoneyFellows\\MoneyFellows.ProductOrder.Core\\MoneyFellows.ProductOrder.Core.csproj",
+  "projectFilePath": "D:\\computer science\\MoneyFellows\\MoneyFellows.ProductOrder\\MoneyFellows.ProductOrder.Core\\MoneyFellows.ProductOrder.Core.csproj",
   "expectedPackageFiles": [],
   "logs": []
 }

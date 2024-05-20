@@ -107,6 +107,43 @@
         "frameworkReferences": [
           "Microsoft.AspNetCore.App"
         ]
+      },
+      "MoneyFellows.ProductOrder.Application/1.0.0": {
+        "type": "project",
+        "framework": ".NETCoreApp,Version=v8.0",
+        "dependencies": {
+          "MoneyFellows.ProductOrder.Core": "1.0.0",
+          "MoneyFellows.ProductOrder.Infrastructure": "1.0.0"
+        },
+        "compile": {
+          "bin/placeholder/MoneyFellows.ProductOrder.Application.dll": {}
+        },
+        "runtime": {
+          "bin/placeholder/MoneyFellows.ProductOrder.Application.dll": {}
+        }
+      },
+      "MoneyFellows.ProductOrder.Core/1.0.0": {
+        "type": "project",
+        "framework": ".NETCoreApp,Version=v8.0",
+        "compile": {
+          "bin/placeholder/MoneyFellows.ProductOrder.Core.dll": {}
+        },
+        "runtime": {
+          "bin/placeholder/MoneyFellows.ProductOrder.Core.dll": {}
+        }
+      },
+      "MoneyFellows.ProductOrder.Infrastructure/1.0.0": {
+        "type": "project",
+        "framework": ".NETCoreApp,Version=v8.0",
+        "dependencies": {
+          "MoneyFellows.ProductOrder.Core": "1.0.0"
+        },
+        "compile": {
+          "bin/placeholder/MoneyFellows.ProductOrder.Infrastructure.dll": {}
+        },
+        "runtime": {
+          "bin/placeholder/MoneyFellows.ProductOrder.Infrastructure.dll": {}
+        }
       }
     }
   },
@@ -451,11 +488,27 @@
         "swashbuckle.aspnetcore.swaggerui.6.4.0.nupkg.sha512",
         "swashbuckle.aspnetcore.swaggerui.nuspec"
       ]
+    },
+    "MoneyFellows.ProductOrder.Application/1.0.0": {
+      "type": "project",
+      "path": "../MoneyFellows.ProductOrder.Application/MoneyFellows.ProductOrder.Application.csproj",
+      "msbuildProject": "../MoneyFellows.ProductOrder.Application/MoneyFellows.ProductOrder.Application.csproj"
+    },
+    "MoneyFellows.ProductOrder.Core/1.0.0": {
+      "type": "project",
+      "path": "../MoneyFellows.ProductOrder.Core/MoneyFellows.ProductOrder.Core.csproj",
+      "msbuildProject": "../MoneyFellows.ProductOrder.Core/MoneyFellows.ProductOrder.Core.csproj"
+    },
+    "MoneyFellows.ProductOrder.Infrastructure/1.0.0": {
+      "type": "project",
+      "path": "../MoneyFellows.ProductOrder.Infrastructure/MoneyFellows.ProductOrder.Infrastructure.csproj",
+      "msbuildProject": "../MoneyFellows.ProductOrder.Infrastructure/MoneyFellows.ProductOrder.Infrastructure.csproj"
     }
   },
   "projectFileDependencyGroups": {
     "net8.0": [
       "Microsoft.AspNetCore.OpenApi >= 8.0.5",
+      "MoneyFellows.ProductOrder.Application >= 1.0.0",
       "Swashbuckle.AspNetCore >= 6.4.0"
     ]
   },
@@ -465,11 +518,11 @@
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "D:\\MoneyFellows\\MoneyFellows.ProductOrder.API\\MoneyFellows.ProductOrder.API.csproj",
+      "projectUniqueName": "D:\\computer science\\MoneyFellows\\MoneyFellows.ProductOrder\\MoneyFellows.ProductOrder.API\\MoneyFellows.ProductOrder.API.csproj",
       "projectName": "MoneyFellows.ProductOrder.API",
-      "projectPath": "D:\\MoneyFellows\\MoneyFellows.ProductOrder.API\\MoneyFellows.ProductOrder.API.csproj",
+      "projectPath": "D:\\computer science\\MoneyFellows\\MoneyFellows.ProductOrder\\MoneyFellows.ProductOrder.API\\MoneyFellows.ProductOrder.API.csproj",
       "packagesPath": "C:\\Users\\baraa\\.nuget\\packages\\",
-      "outputPath": "D:\\MoneyFellows\\MoneyFellows.ProductOrder.API\\obj\\",
+      "outputPath": "D:\\computer science\\MoneyFellows\\MoneyFellows.ProductOrder\\MoneyFellows.ProductOrder.API\\obj\\",
       "projectStyle": "PackageReference",
       "configFilePaths": [
         "C:\\Users\\baraa\\AppData\\Roaming\\NuGet\\NuGet.Config"
@@ -483,7 +536,11 @@
       "frameworks": {
         "net8.0": {
           "targetAlias": "net8.0",
-          "projectReferences": {}
+          "projectReferences": {
+            "D:\\computer science\\MoneyFellows\\MoneyFellows.ProductOrder\\MoneyFellows.ProductOrder.Application\\MoneyFellows.ProductOrder.Application.csproj": {
+              "projectPath": "D:\\computer science\\MoneyFellows\\MoneyFellows.ProductOrder\\MoneyFellows.ProductOrder.Application\\MoneyFellows.ProductOrder.Application.csproj"
+            }
+          }
         }
       },
       "warningProperties": {

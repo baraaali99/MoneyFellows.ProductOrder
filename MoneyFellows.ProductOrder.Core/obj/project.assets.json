@@ -13,11 +13,11 @@
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "D:\\MoneyFellows\\MoneyFellows.ProductOrder.Core\\MoneyFellows.ProductOrder.Core.csproj",
+      "projectUniqueName": "D:\\computer science\\MoneyFellows\\MoneyFellows.ProductOrder\\MoneyFellows.ProductOrder.Core\\MoneyFellows.ProductOrder.Core.csproj",
       "projectName": "MoneyFellows.ProductOrder.Core",
-      "projectPath": "D:\\MoneyFellows\\MoneyFellows.ProductOrder.Core\\MoneyFellows.ProductOrder.Core.csproj",
+      "projectPath": "D:\\computer science\\MoneyFellows\\MoneyFellows.ProductOrder\\MoneyFellows.ProductOrder.Core\\MoneyFellows.ProductOrder.Core.csproj",
       "packagesPath": "C:\\Users\\baraa\\.nuget\\packages\\",
-      "outputPath": "D:\\MoneyFellows\\MoneyFellows.ProductOrder.Core\\obj\\",
+      "outputPath": "D:\\computer science\\MoneyFellows\\MoneyFellows.ProductOrder\\MoneyFellows.ProductOrder.Core\\obj\\",
       "projectStyle": "PackageReference",
       "configFilePaths": [
         "C:\\Users\\baraa\\AppData\\Roaming\\NuGet\\NuGet.Config"

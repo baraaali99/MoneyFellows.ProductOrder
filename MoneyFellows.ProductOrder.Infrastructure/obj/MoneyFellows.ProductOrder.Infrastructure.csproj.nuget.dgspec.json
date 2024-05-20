@@ -1,17 +1,17 @@
 {
   "format": 1,
   "restore": {
-    "D:\\MoneyFellows\\MoneyFellows.ProductOrder.Infrastructure\\MoneyFellows.ProductOrder.Infrastructure.csproj": {}
+    "D:\\computer science\\MoneyFellows\\MoneyFellows.ProductOrder\\MoneyFellows.ProductOrder.Infrastructure\\MoneyFellows.ProductOrder.Infrastructure.csproj": {}
   },
   "projects": {
-    "D:\\MoneyFellows\\MoneyFellows.ProductOrder.Infrastructure\\MoneyFellows.ProductOrder.Infrastructure.csproj": {
+    "D:\\computer science\\MoneyFellows\\MoneyFellows.ProductOrder\\MoneyFellows.ProductOrder.Core\\MoneyFellows.ProductOrder.Core.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "D:\\MoneyFellows\\MoneyFellows.ProductOrder.Infrastructure\\MoneyFellows.ProductOrder.Infrastructure.csproj",
-        "projectName": "MoneyFellows.ProductOrder.Infrastructure",
-        "projectPath": "D:\\MoneyFellows\\MoneyFellows.ProductOrder.Infrastructure\\MoneyFellows.ProductOrder.Infrastructure.csproj",
+        "projectUniqueName": "D:\\computer science\\MoneyFellows\\MoneyFellows.ProductOrder\\MoneyFellows.ProductOrder.Core\\MoneyFellows.ProductOrder.Core.csproj",
+        "projectName": "MoneyFellows.ProductOrder.Core",
+        "projectPath": "D:\\computer science\\MoneyFellows\\MoneyFellows.ProductOrder\\MoneyFellows.ProductOrder.Core\\MoneyFellows.ProductOrder.Core.csproj",
         "packagesPath": "C:\\Users\\baraa\\.nuget\\packages\\",
-        "outputPath": "D:\\MoneyFellows\\MoneyFellows.ProductOrder.Infrastructure\\obj\\",
+        "outputPath": "D:\\computer science\\MoneyFellows\\MoneyFellows.ProductOrder\\MoneyFellows.ProductOrder.Core\\obj\\",
         "projectStyle": "PackageReference",
         "configFilePaths": [
           "C:\\Users\\baraa\\AppData\\Roaming\\NuGet\\NuGet.Config"
@@ -26,6 +26,63 @@
           "net8.0": {
             "targetAlias": "net8.0",
             "projectReferences": {}
+          }
+        },
+        "warningProperties": {
+          "warnAsError": [
+            "NU1605"
+          ]
+        }
+      },
+      "frameworks": {
+        "net8.0": {
+          "targetAlias": "net8.0",
+          "imports": [
+            "net461",
+            "net462",
+            "net47",
+            "net471",
+            "net472",
+            "net48",
+            "net481"
+          ],
+          "assetTargetFallback": true,
+          "warn": true,
+          "frameworkReferences": {
+            "Microsoft.NETCore.App": {
+              "privateAssets": "all"
+            }
+          },
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\8.0.105/PortableRuntimeIdentifierGraph.json"
+        }
+      }
+    },
+    "D:\\computer science\\MoneyFellows\\MoneyFellows.ProductOrder\\MoneyFellows.ProductOrder.Infrastructure\\MoneyFellows.ProductOrder.Infrastructure.csproj": {
+      "version": "1.0.0",
+      "restore": {
+        "projectUniqueName": "D:\\computer science\\MoneyFellows\\MoneyFellows.ProductOrder\\MoneyFellows.ProductOrder.Infrastructure\\MoneyFellows.ProductOrder.Infrastructure.csproj",
+        "projectName": "MoneyFellows.ProductOrder.Infrastructure",
+        "projectPath": "D:\\computer science\\MoneyFellows\\MoneyFellows.ProductOrder\\MoneyFellows.ProductOrder.Infrastructure\\MoneyFellows.ProductOrder.Infrastructure.csproj",
+        "packagesPath": "C:\\Users\\baraa\\.nuget\\packages\\",
+        "outputPath": "D:\\computer science\\MoneyFellows\\MoneyFellows.ProductOrder\\MoneyFellows.ProductOrder.Infrastructure\\obj\\",
+        "projectStyle": "PackageReference",
+        "configFilePaths": [
+          "C:\\Users\\baraa\\AppData\\Roaming\\NuGet\\NuGet.Config"
+        ],
+        "originalTargetFrameworks": [
+          "net8.0"
+        ],
+        "sources": {
+          "https://api.nuget.org/v3/index.json": {}
+        },
+        "frameworks": {
+          "net8.0": {
+            "targetAlias": "net8.0",
+            "projectReferences": {
+              "D:\\computer science\\MoneyFellows\\MoneyFellows.ProductOrder\\MoneyFellows.ProductOrder.Core\\MoneyFellows.ProductOrder.Core.csproj": {
+                "projectPath": "D:\\computer science\\MoneyFellows\\MoneyFellows.ProductOrder\\MoneyFellows.ProductOrder.Core\\MoneyFellows.ProductOrder.Core.csproj"
+              }
+            }
           }
         },
         "warningProperties": {
