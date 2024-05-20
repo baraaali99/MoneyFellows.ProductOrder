@@ -37,6 +37,11 @@ public class ProductRepository : IProductRepository
 
     public async Task DeleteAsync(Guid id)
     {
-        throw new NotImplementedException();
+        var product = await _dbContext.Products.FirstOrDefaultAsync(p => p.Id == id);
+        if (product != null)
+        {
+            _dbContext.Products.Remove(product);
+            await _dbContext.SaveChangesAsync();
+        }
     }
 }
