@@ -1,8 +1,10 @@
 using Microsoft.EntityFrameworkCore;
 using MoneyFellows.ProductOrder.Core.Interfaces;
 using MoneyFellows.ProductOrder.Infrastructure;
-using MoneyFellows.ProductOrder.Infrastructure.Data;
 using Microsoft.EntityFrameworkCore.Design;
+using MoneyFellows.ProductOrder.Application.IServices;
+using MoneyFellows.ProductOrder.Application.Services;
+using MoneyFellows.ProductOrder.Infrastructure.Data;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -22,6 +24,8 @@ builder.Services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
 
 builder.Services.AddScoped<IProductRepository, ProductRepository>();
 builder.Services.AddScoped<IOrderRepository, OrderRepository>();
+builder.Services.AddScoped<IProductService, ProductService>();
+
 // Configure the HTTP request pipeline.
 if (app.Environment.IsDevelopment())
 {
