@@ -1,9 +1,10 @@
 {
   "version": 2,
-  "dgSpecHash": "C8WzFjLaC5odO0ErNRKJ703ArdjrVimU4DdPTN0ObIV4cypfiuf/W35Efv37qg8B5lyNEsvOdiWoob6Ln/0PKg==",
+  "dgSpecHash": "AN8rBzfOCjewjmJtjZqyAZvWV+7u5KFxmMRj9yWM5ercHXt/4+eAe4lO8BD65ypuVhu2h/YuQIgtiNwF78dkwA==",
   "success": true,
   "projectFilePath": "D:\\computer science\\MoneyFellows\\MoneyFellows.ProductOrder\\MoneyFellows.ProductOrder.API\\MoneyFellows.ProductOrder.API.csproj",
   "expectedPackageFiles": [
+    "C:\\Users\\baraa\\.nuget\\packages\\automapper\\13.0.1\\automapper.13.0.1.nupkg.sha512",
     "C:\\Users\\baraa\\.nuget\\packages\\azure.core\\1.25.0\\azure.core.1.25.0.nupkg.sha512",
     "C:\\Users\\baraa\\.nuget\\packages\\azure.identity\\1.7.0\\azure.identity.1.7.0.nupkg.sha512",
     "C:\\Users\\baraa\\.nuget\\packages\\humanizer.core\\2.14.1\\humanizer.core.2.14.1.nupkg.sha512",
