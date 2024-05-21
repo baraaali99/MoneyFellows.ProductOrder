@@ -15,7 +15,7 @@ public class Order
     public decimal TotalCost { get; set; }
     
     [Required]
-    public List<OrderDetail> OrderDetails { get; set; }
+    public List<OrderDetails> OrderDetails { get; set; }
     
     [Required]
     [StringLength(500)]

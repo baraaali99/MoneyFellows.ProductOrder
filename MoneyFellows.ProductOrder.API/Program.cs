@@ -2,6 +2,7 @@ using Microsoft.EntityFrameworkCore;
 using MoneyFellows.ProductOrder.Core.Interfaces;
 using MoneyFellows.ProductOrder.Infrastructure;
 using MoneyFellows.ProductOrder.Infrastructure.Data;
+using Microsoft.EntityFrameworkCore.Design;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -11,11 +12,9 @@ builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 
 var app = builder.Build();
-IServiceCollection service = new ServiceCollection();
-IConfiguration config = new ConfigurationManager();
-service.AddDbContext<ProductOrderDbContext>(option =>
-    option.UseSqlServer(config.GetConnectionString("DefaultConnection")));
-service.AddScoped<IProductRepository, ProductRepository>();
+builder.Services.AddDbContext<ProductOrderDbContext>(options =>
+    options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection")));
+builder.Services.AddScoped<IProductRepository, ProductRepository>();
 // Configure the HTTP request pipeline.
 if (app.Environment.IsDevelopment())
 {
