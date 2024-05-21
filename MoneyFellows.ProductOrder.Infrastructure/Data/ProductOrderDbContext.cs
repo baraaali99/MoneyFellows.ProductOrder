@@ -1,6 +1,5 @@
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Design;
-using Microsoft.Extensions.Options;
 using MoneyFellows.ProductOrder.Core.Models;
 
 namespace MoneyFellows.ProductOrder.Infrastructure.Data;
