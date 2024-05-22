@@ -18,9 +18,9 @@ public class ProductRepository : IProductRepository
         return await _dbContext.Products.FirstOrDefaultAsync(p => p.Id == id);
     }
 
-    public async Task<IEnumerable<Product>> GetAllAsync()
+    public async Task<IEnumerable<Product>> GetAllAsync(int pageNumber, int pageSize)
     {
-        return await _dbContext.Products.ToListAsync();
+        return await _dbContext.Products.Skip((pageNumber - 1) * pageSize).Take(pageSize).ToListAsync();
     }
 
     public async Task AddAsync(Product product)
