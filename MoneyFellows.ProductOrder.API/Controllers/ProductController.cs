@@ -1,3 +1,6 @@
+using System;
+using System.Collections.Generic;
+using System.Threading.Tasks;
 using AutoMapper;
 using Microsoft.AspNetCore.Mvc;
 using MoneyFellows.ProductOrder.Application.DTOs;
@@ -21,7 +24,7 @@ public class ProductController : ControllerBase
     [HttpGet]
     public async Task<IActionResult>GetProducts()
     {
-        var products = _productService.GetAllProductsAsync();
+        var products = await _productService.GetAllProductsAsync();
         var productsDto = _mapper.Map<IEnumerable<ProductDTO>>(products);
         return Ok(productsDto);
     }
