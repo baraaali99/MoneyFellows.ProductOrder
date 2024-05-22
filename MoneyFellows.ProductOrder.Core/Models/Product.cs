@@ -15,7 +15,7 @@ public class Product
     [RegularExpression(@"^[a-zA-Z0-9\s]*$")]
     public string ProductDescription { get; set; }
     
-    public byte[] ProductImage { get; set; }
+    public byte[]? ProductImage { get; set; }
     
     [Required]
     [Range(0.01, double.MaxValue)]
