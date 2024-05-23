@@ -30,7 +30,6 @@ namespace MoneyFellows.ProductOrder.Application.Products.Queries
         {
             var products = await _productRepository.GetAllAsync(request.PageNumber, request.PageSize);
             var productsDto = _mapper.Map<IEnumerable<GetProductsListQueryOutputDtoItem>>(products);
-            var product = _mapper.Map<GetProductsListQueryOutputDtoItem>(products.First());
             return new GetProductsListQueryOutputDto
             {
                 Items = productsDto.ToList(),
