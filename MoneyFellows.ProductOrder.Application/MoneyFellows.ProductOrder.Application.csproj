@@ -13,9 +13,6 @@
 
   <ItemGroup>
     <Folder Include="Orders\Commands\" />
-    <Folder Include="Orders\Dtos\" />
-    <Folder Include="Orders\MappingProfile\" />
-    <Folder Include="Orders\Queries\" />
   </ItemGroup>
 
   <PropertyGroup>
