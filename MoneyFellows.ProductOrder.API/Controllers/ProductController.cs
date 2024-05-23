@@ -61,6 +61,7 @@ public class ProductController : ControllerBase
         {
             Id = id
         };
+        
         await _mediator.Send(deleteProductCommand);
         return Ok();
     }
