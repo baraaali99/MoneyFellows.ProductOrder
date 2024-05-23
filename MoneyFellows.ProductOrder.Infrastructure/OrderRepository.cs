@@ -17,9 +17,9 @@ public class OrderRepository : IOrderRepository
         return await _DbContext.Orders.FirstOrDefaultAsync(o => o.Id == id);
     }
 
-    public async Task<IEnumerable<Order>> GetAllAsync()
+    public async Task<IEnumerable<Order>> GetAllAsync(int pageNumber, int pageSize)
     {
-        return await _DbContext.Orders.ToListAsync();
+        return await _DbContext.Orders.Skip((pageNumber - 1) * pageSize).Take(pageSize).ToListAsync();
     }
 
     public async Task AddAsync(Order order)
