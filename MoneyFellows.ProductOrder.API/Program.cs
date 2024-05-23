@@ -22,6 +22,7 @@ builder.Services.AddDbContext<ProductOrderDbContext>(options =>
 // Register MediatR with the assembly where the handlers are located
 builder.Services.AddMediatR(typeof(MoneyFellows.ProductOrder.Application.Products.Queries.GetProductsListQueryHandler).Assembly);
 builder.Services.AddMediatR(typeof(MoneyFellows.ProductOrder.Application.Products.Queries.GetProductByIdQueryHandler).Assembly);
+builder.Services.AddMediatR(typeof(MoneyFellows.ProductOrder.Application.Orders.Queries.GetOrdersListQueryHandler).Assembly);
 
 // Register FluentValidation
 builder.Services.AddValidatorsFromAssembly(Assembly.GetExecutingAssembly());
