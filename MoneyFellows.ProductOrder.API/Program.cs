@@ -1,8 +1,11 @@
+using System;
+using System.Reflection;
+using FluentValidation;
+using FluentValidation.AspNetCore;
+using MediatR;
 using Microsoft.EntityFrameworkCore;
 using MoneyFellows.ProductOrder.Core.Interfaces;
 using MoneyFellows.ProductOrder.Infrastructure;
-using MoneyFellows.ProductOrder.Application.IServices;
-using MoneyFellows.ProductOrder.Application.Services;
 using MoneyFellows.ProductOrder.Infrastructure.Data;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -16,20 +19,24 @@ builder.Services.AddSwaggerGen();
 builder.Services.AddDbContext<ProductOrderDbContext>(options =>
     options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection")));
 
+// Register MediatR with the assembly where the handlers are located
+builder.Services.AddMediatR(typeof(MoneyFellows.ProductOrder.Application.Products.Queries.GetProductsListQueryHandler).Assembly);
+builder.Services.AddMediatR(typeof(MoneyFellows.ProductOrder.Application.Products.Queries.GetProductByIdQueryHandler).Assembly);
+
+// Register FluentValidation
+builder.Services.AddValidatorsFromAssembly(Assembly.GetExecutingAssembly());
+builder.Services.AddFluentValidationAutoValidation();
+
 // Register AutoMapper
 builder.Services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
 
+// Register repositories and services
 builder.Services.AddScoped<IProductRepository, ProductRepository>();
 builder.Services.AddScoped<IOrderRepository, OrderRepository>();
-builder.Services.AddScoped<IProductService, ProductService>();
+// Add controllers
+builder.Services.AddControllers();
 
 // Configure the HTTP request pipeline.
-if (builder.Environment.IsDevelopment())
-{
-    builder.Services.AddControllers();
-    builder.Services.AddSwaggerGen();
-}
-
 var app = builder.Build();
 
 if (app.Environment.IsDevelopment())
@@ -40,7 +47,6 @@ if (app.Environment.IsDevelopment())
 
 app.UseHttpsRedirection();
 app.UseAuthorization();
-
 app.MapControllers();
 
 app.Run();
