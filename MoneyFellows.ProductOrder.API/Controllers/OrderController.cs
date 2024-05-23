@@ -1,5 +1,6 @@
 using MediatR;
 using Microsoft.AspNetCore.Mvc;
+using MoneyFellows.ProductOrder.Application.Orders.Commands;
 using MoneyFellows.ProductOrder.Application.Orders.Queries;
 
 namespace MoneyFellows.ProductOrder.API.Controllers;
@@ -31,5 +32,17 @@ public class OrderController : ControllerBase
     {
         var order = await _mediator.Send(new GetOrderByIdQuery(id));
         return Ok(order);
+    }
+
+    [HttpDelete("{id}")]
+    public async Task<IActionResult> DeleteOrder(Guid id)
+    {
+        var deleteOrderCommand = new DeleteOrderCommand()
+        {
+            id = id
+        };
+        
+        await _mediator.Send(deleteOrderCommand);
+        return Ok();
     }
 }
