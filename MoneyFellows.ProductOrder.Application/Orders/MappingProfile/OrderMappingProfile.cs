@@ -11,5 +11,7 @@ public class OrderMappingProfile : Profile
         CreateMap<Order, GetOrdersListQueryOutputDtoItem>()
             .ForMember(dest => dest.OrderDetails, opt => opt.MapFrom(src => src.OrderDetails));
         CreateMap<OrderDetails, OrderDetailDto>();
+        CreateMap<Order, GetOrderbyIdQueryDto>();
+
     }
 }
