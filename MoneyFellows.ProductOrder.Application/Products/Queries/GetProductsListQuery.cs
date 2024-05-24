@@ -4,8 +4,10 @@ using MoneyFellows.ProductOrder.Application.Products.Dtos;
 using MoneyFellows.ProductOrder.Core.Interfaces;
 using System.Collections.Generic;
 using System.Linq;
+using System.Linq.Expressions;
 using System.Threading;
 using System.Threading.Tasks;
+using MoneyFellows.ProductOrder.Core.Models;
 
 namespace MoneyFellows.ProductOrder.Application.Products.Queries
 {
@@ -13,6 +15,9 @@ namespace MoneyFellows.ProductOrder.Application.Products.Queries
     {
         public int PageNumber { get; set; }
         public int PageSize { get; set; }
+        public Expression<Func<Product, bool>>? filter { get; set; }
+        public Func<IQueryable<Product>, IOrderedQueryable<Product>>? orderBy { get; set; }
+
     }
 
     public class GetProductsListQueryHandler : IRequestHandler<GetProductsListQuery, GetProductsListQueryOutputDto>
@@ -28,7 +33,7 @@ namespace MoneyFellows.ProductOrder.Application.Products.Queries
 
         public async Task<GetProductsListQueryOutputDto> Handle(GetProductsListQuery request, CancellationToken cancellationToken)
         {
-            var products = await _productRepository.GetAllAsync(request.PageNumber, request.PageSize);
+            var products = await _productRepository.GetAllAsync(request.PageNumber, request.PageSize, request.filter,request.orderBy);
             var productsDto = _mapper.Map<IEnumerable<GetProductsListQueryOutputDtoItem>>(products);
             return new GetProductsListQueryOutputDto
             {
