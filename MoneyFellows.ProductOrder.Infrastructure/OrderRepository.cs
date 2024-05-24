@@ -56,4 +56,12 @@ public class OrderRepository : IOrderRepository
             await _dbContext.SaveChangesAsync();
         }
     }
+
+    public async Task<bool> AnyAsync(Expression<Func<Order, bool>> predicate, Guid productId)
+    {
+        return await _dbContext.Orders
+            .Where(predicate)
+            .SelectMany(o => o.OrderDetails) // Flatten order details
+            .AnyAsync(od => od.ProductId == productId); // Check if any order detail has the specified product Id
+    }
 }

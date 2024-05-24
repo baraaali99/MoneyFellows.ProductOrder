@@ -11,4 +11,5 @@ public interface IOrderRepository
     Task AddAsync(Order? order);
     Task UpdateAsync(Order? order);
     Task DeleteAsync(Guid id);
+    Task<bool> AnyAsync(Expression<Func<Order, bool>> predicate, Guid productId);
 }
