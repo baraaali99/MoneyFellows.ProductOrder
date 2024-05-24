@@ -56,4 +56,11 @@ public class OrderController : ControllerBase
         await _mediator.Send(deleteOrderCommand);
         return Ok();
     }
+
+    public async Task<IActionResult> UpdateProduct(Guid id, [FromBody] UpdateOrderCommand updateOrderCommand)
+    {
+        updateOrderCommand.Id = id;
+        await _mediator.Send(updateOrderCommand);
+        return Ok();
+    }
 }
