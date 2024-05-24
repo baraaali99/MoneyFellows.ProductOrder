@@ -1,5 +1,6 @@
 using AutoMapper;
 using MediatR;
+using Microsoft.Extensions.Logging;
 using MoneyFellows.ProductOrder.Core.Interfaces;
 using MoneyFellows.ProductOrder.Core.Models;
 
@@ -22,16 +23,21 @@ public class UpdateProductCommandHandler : IRequestHandler<UpdateProductCommand>
 {
     private readonly IProductRepository _productRepository;
     private readonly IMapper _mapper;
-    public UpdateProductCommandHandler(IProductRepository productRepository, IMapper mapper)
+    private readonly ILogger<UpdateProductCommandHandler> _logger;
+    public UpdateProductCommandHandler(IProductRepository productRepository, IMapper mapper,
+        ILogger<UpdateProductCommandHandler> logger)
     {
         _productRepository = productRepository;
         _mapper = mapper;
+        _logger = logger;
     }
     public async Task<Unit> Handle(UpdateProductCommand request, CancellationToken cancellationToken)
     {
+        _logger.LogInformation("Attempting to update product with Id: {ProductId}", request.Id);
         var product = await _productRepository.GetByIdAsync(request.Id);
         if (product == null)
         {
+            _logger.LogWarning("Product with Id: {ProductId} not found", request.Id);
             throw new Exception("can't find Product with Id = " + request.Id);
         }
         _mapper.Map(request, product);
