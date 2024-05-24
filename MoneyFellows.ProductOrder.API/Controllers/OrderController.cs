@@ -45,6 +45,7 @@ public class OrderController : ControllerBase
             _logger.LogWarning("Order with id: {id} not found", id);
             return NotFound();
         }
+        _logger.LogInformation( "Order with id: {id} fetched successfully", id);
         return Ok(order);
     }
 

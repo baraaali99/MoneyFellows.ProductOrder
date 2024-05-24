@@ -57,7 +57,7 @@ public class ProductController : ControllerBase
             _logger.LogWarning("Product with id: {id} not found", id);
             return NotFound();
         }
-        _logger.LogInformation("Product with id: {id} fetched successfully", id);
+        _logger.LogInformation( "Product with id: {id} fetched successfully", id);
         return Ok(product);
     }
 
@@ -68,7 +68,6 @@ public class ProductController : ControllerBase
         updateProductCommand.Id = id;
         await _mediator.Send(updateProductCommand);
         _logger.LogInformation("Product with id: {id} updated successfully", id);
-        
         return Ok();
     }
 
@@ -83,7 +82,6 @@ public class ProductController : ControllerBase
         
         await _mediator.Send(deleteProductCommand);
         _logger.LogInformation("Product with id: {id} deleted successfully", id);
-        
         return Ok();
     }
 }
