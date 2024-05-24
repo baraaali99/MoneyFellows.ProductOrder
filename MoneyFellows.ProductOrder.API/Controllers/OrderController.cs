@@ -1,7 +1,9 @@
+using System.Linq.Expressions;
 using MediatR;
 using Microsoft.AspNetCore.Mvc;
 using MoneyFellows.ProductOrder.Application.Orders.Commands;
 using MoneyFellows.ProductOrder.Application.Orders.Queries;
+using MoneyFellows.ProductOrder.Core.Models;
 
 namespace MoneyFellows.ProductOrder.API.Controllers;
 [ApiController]
@@ -16,12 +18,15 @@ public class OrderController : ControllerBase
     }
 
     [HttpGet]
-    public async Task<IActionResult> GetOrders([FromQuery] int pageNumber = 1, [FromQuery] int pageSize = 20)
+    public async Task<IActionResult> GetOrders([FromQuery] int pageNumber = 1, [FromQuery] int pageSize = 20,
+        [FromQuery]Expression<Func<Order, bool>>? filter = null,[FromQuery] Func<IQueryable<Order>, IOrderedQueryable<Order>>? orderBy = null)
     {
         var getOrdersQueryList = new GetOrdersListQuery()
         {
             pageNumber = pageNumber,
-            pageSize = pageSize
+            pageSize = pageSize,
+            filter = filter,
+            orderBy = orderBy
         };
         var orders = await _mediator.Send(getOrdersQueryList);
         return Ok(orders);
@@ -34,6 +39,12 @@ public class OrderController : ControllerBase
         return Ok(order);
     }
 
+    [HttpPost]
+    public async Task<IActionResult> CreateOrder([FromBody] CreateOrderCommand createOrderCommand)
+    {
+        await _mediator.Send(createOrderCommand);
+        return Ok();
+    }
     [HttpDelete("{id}")]
     public async Task<IActionResult> DeleteOrder(Guid id)
     {
