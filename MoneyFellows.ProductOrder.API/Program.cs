@@ -44,7 +44,7 @@ builder.Services.AddScoped<IOrderRepository, OrderRepository>();
 // Configure Serilog
 Log.Logger = new LoggerConfiguration()
     .WriteTo.Console()
-    .WriteTo.File("log.txt",
+    .WriteTo.File("logs.log",
         rollingInterval: RollingInterval.Day)
     .CreateLogger();
 builder.Host.UseSerilog((context, configuration) => 
