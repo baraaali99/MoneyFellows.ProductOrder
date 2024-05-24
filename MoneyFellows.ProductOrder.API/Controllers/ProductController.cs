@@ -1,10 +1,6 @@
-using System;
-using System.Collections.Generic;
-using System.Threading.Tasks;
-using AutoMapper;
+using System.Linq.Expressions;
 using MediatR;
 using Microsoft.AspNetCore.Mvc;
-using MoneyFellows.ProductOrder.Application.IServices;
 using MoneyFellows.ProductOrder.Application.Products.Commands;
 using MoneyFellows.ProductOrder.Application.Products.Queries;
 using MoneyFellows.ProductOrder.Core.Models;
@@ -21,12 +17,16 @@ public class ProductController : ControllerBase
     }
 
     [HttpGet]
-    public async Task<IActionResult>GetProducts([FromQuery] int pageNumber = 1, [FromQuery] int pageSize = 20)
+    public async Task<IActionResult>GetProducts([FromQuery] int pageNumber = 1, [FromQuery] int pageSize = 20,
+        [FromQuery]Expression<Func<Product, bool>>? filter = null, 
+        [FromQuery]Func<IQueryable<Product>, IOrderedQueryable<Product>>? orderBy = null)
     {
         var getProductListQuery = new GetProductsListQuery
         {
             PageNumber = pageNumber,
-            PageSize = pageSize
+            PageSize = pageSize,
+            filter = filter,
+            orderBy = orderBy
         };
         var products = await _mediator.Send(getProductListQuery);
         return Ok(products);
