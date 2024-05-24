@@ -1,3 +1,4 @@
+using System.Linq.Expressions;
 using Microsoft.EntityFrameworkCore;
 using MoneyFellows.ProductOrder.Core.Interfaces;
 using MoneyFellows.ProductOrder.Core.Models;
@@ -17,10 +18,20 @@ public class ProductRepository : IProductRepository
     {
         return await _dbContext.Products.FirstOrDefaultAsync(p => p.Id == id);
     }
-
-    public async Task<IEnumerable<Product>> GetAllAsync(int pageNumber, int pageSize)
+    public async Task<IEnumerable<Product>> GetAllAsync(int pageNumber, int pageSize,Expression<Func<Product, bool>>? filter = null, 
+        Func<IQueryable<Product>, IOrderedQueryable<Product>>? orderBy = null)
     {
-        return await _dbContext.Products.Skip((pageNumber - 1) * pageSize).Take(pageSize).ToListAsync();
+        IQueryable<Product> query = _dbContext.Products;
+        if (filter != null)
+        {
+            query = query.Where(filter);
+        }
+
+        if (orderBy != null)
+        {
+            query = orderBy(query);
+        }
+        return await query.Skip((pageNumber - 1) * pageSize).Take(pageSize).ToListAsync();
     }
 
     public async Task AddAsync(Product product)
