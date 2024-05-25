@@ -8,7 +8,7 @@ public class GetOrderbyIdQueryDto
     public string DeliveryAddress { get; set; } = string.Empty;
     public decimal TotalCost { get; set; }
     public List<OrderDetailByIdDto> OrderDetails { get; set; }
-    public Customer customerDetails { get; set; }
+    public CustomerDetailsDto Customer { get; set; }
     public DateTime DeliveryTime { get; set; }   
 }
 public class OrderDetailByIdDto
