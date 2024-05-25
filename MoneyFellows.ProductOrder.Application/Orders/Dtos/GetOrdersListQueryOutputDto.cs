@@ -10,7 +10,7 @@ public class GetOrdersListQueryOutputDtoItem
     public string DeliveryAddress { get; set; } = string.Empty;
     public decimal TotalCost { get; set; }
     public List<GetOrderDetailsDto> OrderDetails { get; set; }
-    public string CustomerDetails { get; set; } = string.Empty;
+    public CustomerDetailsDto Customer { get; set; }
     public DateTime DeliveryTime { get; set; }
 }
 
