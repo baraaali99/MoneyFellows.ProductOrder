@@ -1,7 +1,9 @@
 using Asp.Versioning;
 using MediatR;
 using Microsoft.AspNetCore.Mvc;
-using MoneyFellows.ProductOrder.Application.Orders.Commands;
+using MoneyFellows.ProductOrder.Application.Orders.Commands.CreateOrderCommand;
+using MoneyFellows.ProductOrder.Application.Orders.Commands.DeleteOrderCommand;
+using MoneyFellows.ProductOrder.Application.Orders.Commands.UpdateOrderCommand;
 using MoneyFellows.ProductOrder.Application.Orders.Queries;
 using Serilog;
 
@@ -18,15 +20,10 @@ public class OrderController : ControllerBase
 
     [HttpGet]
     [ApiVersion("1")]
-    public async Task<IActionResult> GetOrders([FromQuery] int pageNumber = 1, [FromQuery] int pageSize = 20)
+    public async Task<IActionResult> GetOrders([FromQuery] GetOrdersListQuery getOrdersListQuery)
     {
-        Log.Information("Fetching orders with pageNumber: {pageNumber}, pageSize: {pageSize}", pageNumber, pageSize);
-        var getOrdersQueryList = new GetOrdersListQuery()
-        {
-            pageNumber = pageNumber,
-            pageSize = pageSize,
-        };
-        var orders = await _mediator.Send(getOrdersQueryList);
+        Log.Information("Fetching orders with pageNumber: {pageNumber}, pageSize: {pageSize}", getOrdersListQuery.PageNumber, getOrdersListQuery.PageSize);
+        var orders = await _mediator.Send(getOrdersListQuery);
         Log.Information("Fetched {orderCount} orders", orders.Items.Count());
         return Ok(orders);
     }
@@ -55,6 +52,7 @@ public class OrderController : ControllerBase
         Log.Information("Order created successfully");
         return Ok();
     }
+
     [HttpDelete("{id}")]
     [ApiVersion("1")]
     public async Task<IActionResult> DeleteOrder(int id)
@@ -62,7 +60,7 @@ public class OrderController : ControllerBase
         Log.Information("Deleting order with id : {id}", id);
         var deleteOrderCommand = new DeleteOrderCommand()
         {
-            id = id
+            Id = id
         };
 
         await _mediator.Send(deleteOrderCommand);
@@ -70,14 +68,13 @@ public class OrderController : ControllerBase
         return Ok();
     }
 
-    [HttpPut("{id}")]
+    [HttpPut]
     [ApiVersion("1")]
-    public async Task<IActionResult> UpdateProduct(int id, [FromBody] UpdateOrderCommand updateOrderCommand)
+    public async Task<IActionResult> UpdateProduct([FromBody] UpdateOrderCommand updateOrderCommand)
     {
-        Log.Information("Updating order with id : {id}", id);
-        updateOrderCommand.Id = id;
+        Log.Information("Updating order with id : {id}", updateOrderCommand.Id);
         await _mediator.Send(updateOrderCommand);
-        Log.Information("Order updated with id : {id}", id);
+        Log.Information("Order updated with id : {id}", updateOrderCommand.Id);
         return Ok();
     }
 }
