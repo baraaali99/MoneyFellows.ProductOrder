@@ -9,12 +9,12 @@ public class GetOrdersListQueryOutputDtoItem
     public Guid Id { get; set; }
     public string DeliveryAddress { get; set; } = string.Empty;
     public decimal TotalCost { get; set; }
-    public List<OrderDetailDto> OrderDetails { get; set; }
+    public List<GetOrderDetailsDto> OrderDetails { get; set; }
     public string CustomerDetails { get; set; } = string.Empty;
     public DateTime DeliveryTime { get; set; }
 }
 
-public class OrderDetailDto
+public class GetOrderDetailsDto
 {
     public Guid OrderId { get; set; }
     public Guid ProductId { get; set; }

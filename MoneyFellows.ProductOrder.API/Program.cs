@@ -3,6 +3,7 @@ using FluentValidation;
 using FluentValidation.AspNetCore;
 using MediatR;
 using Microsoft.EntityFrameworkCore;
+using MoneyFellows.ProductOrder.Application.Products.Queries;
 using MoneyFellows.ProductOrder.Core.Interfaces;
 using MoneyFellows.ProductOrder.Infrastructure;
 using MoneyFellows.ProductOrder.Infrastructure.Data;
@@ -19,7 +20,8 @@ builder.Services.AddDbContext<ProductOrderDbContext>(options =>
     options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection")));
 
 // Register MediatR with the assembly where the handlers are located
-builder.Services.AddMediatR(Assembly.GetExecutingAssembly());
+builder.Services.AddMediatR(typeof(GetProductsListQueryHandler).Assembly);
+builder.Services.AddMediatR(typeof(GetProductByIdQueryHandler).Assembly);
 
 // Register FluentValidation
 builder.Services.AddValidatorsFromAssembly(Assembly.GetExecutingAssembly());

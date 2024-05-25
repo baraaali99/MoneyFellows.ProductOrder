@@ -19,16 +19,13 @@ public class OrderController : ControllerBase
     }
 
     [HttpGet]
-    public async Task<IActionResult> GetOrders([FromQuery] int pageNumber = 1, [FromQuery] int pageSize = 20,
-        [FromQuery]Expression<Func<Order, bool>>? filter = null,[FromQuery] Func<IQueryable<Order>, IOrderedQueryable<Order>>? orderBy = null)
+    public async Task<IActionResult> GetOrders([FromQuery] int pageNumber = 1, [FromQuery] int pageSize = 20)
     {
         _logger.LogInformation("Fetching orders with pageNumber: {pageNumber}, pageSize: {pageSize}", pageNumber, pageSize);
         var getOrdersQueryList = new GetOrdersListQuery()
         {
             pageNumber = pageNumber,
             pageSize = pageSize,
-            filter = filter,
-            orderBy = orderBy
         };
         var orders = await _mediator.Send(getOrdersQueryList);
         _logger.LogInformation("Fetched {orderCount} orders", orders.Items.Count());
@@ -70,7 +67,8 @@ public class OrderController : ControllerBase
         _logger.LogInformation("Order deleted with id: {id}", id);
         return Ok();
     }
-
+    
+    [HttpPut("{id}")]
     public async Task<IActionResult> UpdateProduct(Guid id, [FromBody] UpdateOrderCommand updateOrderCommand)
     {
         _logger.LogInformation("Updating order with id : {id}", id);

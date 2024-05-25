@@ -18,19 +18,9 @@ public class ProductRepository : IProductRepository
     {
         return await _dbContext.Products.FirstOrDefaultAsync(p => p.Id == id);
     }
-    public async Task<IEnumerable<Product>> GetAllAsync(int pageNumber, int pageSize,Expression<Func<Product, bool>>? filter = null, 
-        Func<IQueryable<Product>, IOrderedQueryable<Product>>? orderBy = null)
+    public async Task<IEnumerable<Product?>> GetAllAsync(int pageNumber, int pageSize)
     {
         IQueryable<Product> query = _dbContext.Products;
-        if (filter != null)
-        {
-            query = query.Where(filter);
-        }
-
-        if (orderBy != null)
-        {
-            query = orderBy(query);
-        }
         return await query.Skip((pageNumber - 1) * pageSize).Take(pageSize).ToListAsync();
     }
 

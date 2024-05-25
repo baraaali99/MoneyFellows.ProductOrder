@@ -11,8 +11,6 @@ public class GetOrdersListQuery : IRequest<GetOrdersListQueryOutputDto>
 {
     public int pageNumber { get; set; }
     public int pageSize { get; set; }
-    public Expression<Func<Order, bool>>? filter { get; set; }
-    public Func<IQueryable<Order>, IOrderedQueryable<Order>>? orderBy { get; set; }
 }
 
 public class GetOrdersListQueryHandler : IRequestHandler<GetOrdersListQuery, GetOrdersListQueryOutputDto>
@@ -27,7 +25,7 @@ public class GetOrdersListQueryHandler : IRequestHandler<GetOrdersListQuery, Get
     }
     public async Task<GetOrdersListQueryOutputDto> Handle(GetOrdersListQuery request, CancellationToken cancellationToken)
     {
-        var orders = await _orderRepository.GetAllAsync(request.pageNumber, request.pageSize, request.filter, request.orderBy);
+        var orders = await _orderRepository.GetAllAsync(request.pageNumber, request.pageSize);
         var ordersDto = _mapper.Map<IEnumerable<GetOrdersListQueryOutputDtoItem>>(orders);
         return new GetOrdersListQueryOutputDto
         {

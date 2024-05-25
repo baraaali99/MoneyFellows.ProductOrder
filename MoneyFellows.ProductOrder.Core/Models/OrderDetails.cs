@@ -5,7 +5,6 @@ namespace MoneyFellows.ProductOrder.Core.Models;
 
 public class OrderDetails
 {
-    [Key]
     public Guid Id { get; set; }
     
     [ForeignKey("Order")]

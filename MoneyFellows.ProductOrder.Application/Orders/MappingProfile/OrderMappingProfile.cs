@@ -10,10 +10,11 @@ public class OrderMappingProfile : Profile
 {
     public OrderMappingProfile()
     {
-        CreateMap<CreateOrderCommand, Product>();
+        CreateMap<CreateOrderCommand, Order>();
         CreateMap<Order, GetOrdersListQueryOutputDtoItem>()
-            .ForMember(dest => dest.OrderDetails, opt => opt.MapFrom(src => src.OrderDetails));
-        CreateMap<OrderDetails, OrderDetailDto>();
+            .ForMember(dest => dest.OrderDetails, opt => opt.MapFrom(src => src.OrderDetails))
+            .ForMember(dest => dest.CustomerDetails, opt => opt.MapFrom(src => src.CustomerDetails));
+        CreateMap<OrderDetails, GetOrderDetailsDto>();
         CreateMap<Order, GetOrderbyIdQueryDto>();
 
     }

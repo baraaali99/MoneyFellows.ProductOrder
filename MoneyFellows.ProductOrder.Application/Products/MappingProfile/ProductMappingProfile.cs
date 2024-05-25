@@ -1,5 +1,4 @@
 using AutoMapper;
-using MoneyFellows.ProductOrder.Application.DTOs;
 using MoneyFellows.ProductOrder.Application.Products.Commands;
 using MoneyFellows.ProductOrder.Application.Products.Dtos;
 using MoneyFellows.ProductOrder.Core.Models;

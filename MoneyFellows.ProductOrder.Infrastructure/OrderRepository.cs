@@ -15,24 +15,21 @@ public class OrderRepository : IOrderRepository
     }
     public async Task<Order?> GetByIdAsync(Guid id)
     {
-        return await _dbContext.Orders.Include(o => o.OrderDetails)
+        return await _dbContext.Orders.
+            Include(o => o.OrderDetails).
+            Include(c => c.CustomerDetails)
             .FirstOrDefaultAsync(o => o.Id == id);
     }
 
-    public async Task<IEnumerable<Order?>> GetAllAsync(int pageNumber, int pageSize, Expression<Func<Order, bool>>? filter = null, 
-        Func<IQueryable<Order>, IOrderedQueryable<Order>>? orderBy = null )
+    public async Task<IEnumerable<Order?>> GetAllAsync(int pageNumber, int pageSize )
     {
-        IQueryable<Order> query = _dbContext.Orders.Include(o => o.OrderDetails);
-        if (filter != null)
-        {
-            query = query.Where(filter);
-        }
-
-        if (orderBy != null)
-        {
-            query = orderBy(query);
-        }
-        return await query.Skip((pageNumber - 1) * pageSize).Take(pageSize).ToListAsync();
+        return await _dbContext.Orders
+            .Include(o => o.OrderDetails)
+            .ThenInclude(od => od.Product)
+            .Include(o => o.CustomerDetails)
+            .Skip((pageNumber - 1) * pageSize)
+            .Take(pageSize)
+            .ToListAsync();
     }
 
     public async Task AddAsync(Order? order)

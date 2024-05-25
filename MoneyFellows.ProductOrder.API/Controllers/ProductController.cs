@@ -20,9 +20,7 @@ public class ProductController : ControllerBase
     }
 
     [HttpGet]
-    public async Task<IActionResult>GetProducts([FromQuery] int pageNumber = 1, [FromQuery] int pageSize = 20,
-        [FromQuery]Expression<Func<Product, bool>>? filter = null, 
-        [FromQuery]Func<IQueryable<Product>, IOrderedQueryable<Product>>? orderBy = null)
+    public async Task<IActionResult>GetProducts([FromQuery] int pageNumber = 1, [FromQuery] int pageSize = 20)
     {
         _logger.LogInformation("Fetching products with pageNumber: {pageNumber}, pageSize: {pageSize}", pageNumber, pageSize);
 
@@ -30,8 +28,6 @@ public class ProductController : ControllerBase
         {
             PageNumber = pageNumber,
             PageSize = pageSize,
-            filter = filter,
-            orderBy = orderBy
         };
         var products = await _mediator.Send(getProductListQuery);
         _logger.LogInformation("Fetched {productCount} products", products.Items.Count());

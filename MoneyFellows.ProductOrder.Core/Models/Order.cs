@@ -18,8 +18,7 @@ public class Order
     public List<OrderDetails> OrderDetails { get; set; }
     
     [Required]
-    [StringLength(500)]
-    public string CustomerDetails { get; set; }
+    public CustomerDetails CustomerDetails { get; set; }
     
     [Required]
     public DateTime DeliveryTime { get; set; }

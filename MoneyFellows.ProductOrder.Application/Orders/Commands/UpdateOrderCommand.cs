@@ -1,6 +1,8 @@
 using AutoMapper;
 using FluentValidation;
 using MediatR;
+using MoneyFellows.ProductOrder.Application.Orders.Dtos;
+using MoneyFellows.ProductOrder.Core.Models;
 using MoneyFellows.ProductOrder.Core.Interfaces;
 using MoneyFellows.ProductOrder.Core.Models;
 
@@ -11,8 +13,8 @@ public class UpdateOrderCommand : IRequest
     public Guid Id { get; set; }
     public string DeliveryAddress { get; set; }
     public decimal TotalCost { get; set; }
-    public List<OrderDetails> OrderDetails { get; set; }
-    public string CustomerDetails { get; set; }
+    public List<CommandsOrderDetailsDto> OrderDetails { get; set; }
+    public CustomerDetails CustomerDetails { get; set; }
     public DateTime DeliveryTime { get; set; }
 }
 

@@ -35,8 +35,7 @@ namespace MoneyFellows.ProductOrder.Application.Orders.Commands
 
             RuleFor(x => x.CustomerDetails)
                 .NotNull().WithMessage("Customer Details are required.")
-                .NotEmpty().WithMessage("Customer Details are required.")
-                .Matches("^[a-zA-Z ]*$").WithMessage("Customer Details must be alphabetic.");
+                .NotEmpty().WithMessage("Customer Details are required.");
 
             RuleFor(x => x.DeliveryTime)
                 .NotNull().WithMessage("Delivery Time is required.")
