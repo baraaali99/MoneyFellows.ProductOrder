@@ -1,16 +1,24 @@
-using System.Linq.Expressions;
 using AutoMapper;
 using MediatR;
 using MoneyFellows.ProductOrder.Application.Orders.Dtos;
 using MoneyFellows.ProductOrder.Core.Interfaces;
-using MoneyFellows.ProductOrder.Core.Models;
 
 namespace MoneyFellows.ProductOrder.Application.Orders.Queries;
 
+public enum OrdersSortBy
+{
+    Id,
+    TotalCost,
+    DeliveryTime,
+}
+
 public class GetOrdersListQuery : IRequest<GetOrdersListQueryOutputDto>
 {
-    public int pageNumber { get; set; }
-    public int pageSize { get; set; }
+    public int PageNumber { get; set; } = 1;
+    public int PageSize { get; set; } = 20;
+    public OrdersSortBy SortBy { get; set; } = OrdersSortBy.Id;
+    public bool SortAscending { get; set; } = true;
+    public string? SearchTerm { get; set; } = null;
 }
 
 public class GetOrdersListQueryHandler : IRequestHandler<GetOrdersListQuery, GetOrdersListQueryOutputDto>
@@ -23,9 +31,15 @@ public class GetOrdersListQueryHandler : IRequestHandler<GetOrdersListQuery, Get
         _orderRepository = orderRepository;
         _mapper = mapper;
     }
+
     public async Task<GetOrdersListQueryOutputDto> Handle(GetOrdersListQuery request, CancellationToken cancellationToken)
     {
-        var orders = await _orderRepository.GetAllAsync(request.pageNumber, request.pageSize);
+        var orders = await _orderRepository.GetAllAsync(pageNumber: request.PageNumber,
+            pageSize: request.PageSize,
+            sortBy: request.SortBy.ToString(),
+            sortAscending: request.SortAscending,
+            searchTerm: request.SearchTerm);
+
         var ordersDto = _mapper.Map<IEnumerable<GetOrdersListQueryOutputDtoItem>>(orders);
         return new GetOrdersListQueryOutputDto
         {
