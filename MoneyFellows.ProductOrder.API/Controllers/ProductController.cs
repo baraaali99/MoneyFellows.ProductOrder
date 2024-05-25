@@ -6,6 +6,7 @@ using MoneyFellows.ProductOrder.Application.Products.Commands.CreateProductComma
 using MoneyFellows.ProductOrder.Application.Products.Commands.DeleteProductCommand;
 using MoneyFellows.ProductOrder.Application.Products.Commands.UpdateProductCommand;
 using MoneyFellows.ProductOrder.Application.Products.Queries;
+using Serilog;
 
 namespace MoneyFellows.ProductOrder.API.Controllers;
 [ApiController]
@@ -13,20 +14,19 @@ namespace MoneyFellows.ProductOrder.API.Controllers;
 public class ProductController : ControllerBase
 {
     private readonly IMediator _mediator;
-    private readonly ILogger<ProductController> _logger;
-    public ProductController(IMediator mediator, ILogger<ProductController> logger)
+    public ProductController(IMediator mediator)
     {
         _mediator = mediator;
-        _logger = logger;
     }
 
     [HttpGet]
     [ApiVersion("1")]
     public async Task<IActionResult> GetProducts([FromQuery] GetProductsListQuery getProductsListQuery)
     {
-        _logger.LogInformation("Fetching products with pageNumber: {pageNumber}, pageSize: {pageSize}", getProductsListQuery.PageNumber, getProductsListQuery.PageSize);
+        
+        Log.Information("Fetching products with pageNumber: {pageNumber}, pageSize: {pageSize}", getProductsListQuery.PageNumber, getProductsListQuery.PageSize);
         var products = await _mediator.Send(getProductsListQuery);
-        _logger.LogInformation("Fetched {productCount} products", products.Items.Count());
+        Log.Information("Fetched {productCount} products", products.Items.Count());
         return Ok(products);
     }
 
@@ -34,9 +34,9 @@ public class ProductController : ControllerBase
     [ApiVersion("1")]
     public async Task<IActionResult> CreateProduct([FromBody] CreateProductCommand createProductCommand)
     {
-        _logger.LogInformation("Creating a new product");
+        Log.Information("Creating a new product");
         await _mediator.Send(createProductCommand);
-        _logger.LogInformation("Product created successfully");
+        Log.Information("Product created successfully");
         return Ok();
     }
 
@@ -44,14 +44,14 @@ public class ProductController : ControllerBase
     [ApiVersion("1")]
     public async Task<IActionResult> GetProductById(int id)
     {
-        _logger.LogInformation("Getting product by id: {id}", id);
+        Log.Information("Getting product by id: {id}", id);
         var product = await _mediator.Send(new GetProductByIdQuery(id));
         if (product == null)
         {
-            _logger.LogWarning("Product with id: {id} not found", id);
+            Log.Error("Product with id: {id} not found", id);
             return NotFound();
-        }
-        _logger.LogInformation("Product with id: {id} fetched successfully", id);
+        } 
+        Log.Information("Product with id: {id} fetched successfully", id);
         return Ok(product);
     }
 
@@ -59,9 +59,9 @@ public class ProductController : ControllerBase
     [HttpPut]
     public async Task<IActionResult> UpdateProduct([FromBody] UpdateProductCommand updateProductCommand)
     {
-        _logger.LogInformation("Updating product with id: {id}", updateProductCommand.Id);
+        Log.Information("Updating product with id: {id}", updateProductCommand.Id);
         await _mediator.Send(updateProductCommand);
-        _logger.LogInformation("Product with id: {id} updated successfully", updateProductCommand.Id);
+        Log.Information("Product with id: {id} updated successfully", updateProductCommand.Id);
         return Ok();
     }
 
@@ -69,14 +69,14 @@ public class ProductController : ControllerBase
     [ApiVersion("2")]
     public async Task<IActionResult> DeleteProduct(int id)
     {
-        _logger.LogInformation("Deleting product with id: {id}", id);
+        Log.Information("Deleting product with id: {id}", id);
         var deleteProductCommand = new DeleteProductCommand()
         {
             Id = id
         };
 
         await _mediator.Send(deleteProductCommand);
-        _logger.LogInformation("Product with id: {id} deleted successfully", id);
+        Log.Information("Product with id: {id} deleted successfully", id);
         return Ok();
     }
 }

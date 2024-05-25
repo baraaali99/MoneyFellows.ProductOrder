@@ -2,6 +2,7 @@ using AutoMapper;
 using MediatR;
 using Microsoft.Extensions.Logging;
 using MoneyFellows.ProductOrder.Core.Interfaces;
+using Serilog;
 
 namespace MoneyFellows.ProductOrder.Application.Products.Commands.UpdateProductCommand;
 
@@ -22,28 +23,25 @@ public class UpdateProductCommandHandler : IRequestHandler<UpdateProductCommand>
 {
     private readonly IProductRepository _productRepository;
     private readonly IMapper _mapper;
-    private readonly ILogger<UpdateProductCommandHandler> _logger;
-    public UpdateProductCommandHandler(IProductRepository productRepository, IMapper mapper,
-        ILogger<UpdateProductCommandHandler> logger)
+    public UpdateProductCommandHandler(IProductRepository productRepository, IMapper mapper)
     {
         _productRepository = productRepository;
         _mapper = mapper;
-        _logger = logger;
     }
     public async Task<Unit> Handle(UpdateProductCommand request, CancellationToken cancellationToken)
-    {
-        _logger.LogInformation("Attempting to update product with Id: {ProductId}", request.Id);
+    { 
+        Log.Information("Attempting to update product with Id: {ProductId}", request.Id);
         var product = await _productRepository.GetByIdAsync(request.Id);
 
         if (product == null)
         {
-            _logger.LogWarning("Product with Id: {ProductId} not found", request.Id);
+            Log.Error("Product with Id: {ProductId} not found", request.Id);
             throw new Exception("can't find Product with Id = " + request.Id);
         }
 
         if (product.ProductName != request.ProductName && await _productRepository.IsProductExistsAsync(request.ProductName))
         {
-            _logger.LogWarning("Product with name: {ProductName} already exists", request.ProductName);
+            Log.Error("Product with name: {ProductName} already exists", request.ProductName);
             throw new Exception("Product with name: " + request.ProductName + " already exists");
         }
 

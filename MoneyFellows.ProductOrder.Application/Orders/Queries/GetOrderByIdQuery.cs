@@ -3,6 +3,7 @@ using MediatR;
 using Microsoft.Extensions.Logging;
 using MoneyFellows.ProductOrder.Application.Orders.Dtos;
 using MoneyFellows.ProductOrder.Core.Interfaces;
+using Serilog;
 
 namespace MoneyFellows.ProductOrder.Application.Orders.Queries;
 
@@ -20,19 +21,17 @@ public class GetOrderByIdQueryHandler : IRequestHandler<GetOrderByIdQuery, GetOr
 {
     private readonly IOrderRepository _orderRepository;
     private readonly IMapper _mapper;
-    private readonly ILogger<GetOrderByIdQueryHandler> _logger;
-    public GetOrderByIdQueryHandler(IOrderRepository orderRepository, IMapper mapper, ILogger<GetOrderByIdQueryHandler> logger)
+    public GetOrderByIdQueryHandler(IOrderRepository orderRepository, IMapper mapper)
     {
         _orderRepository = orderRepository;
         _mapper = mapper;
-        _logger = logger;
     }
     public async Task<GetOrderbyIdQueryDto> Handle(GetOrderByIdQuery request, CancellationToken cancellationToken)
     {
         var order = await _orderRepository.GetByIdAsync(request.Id);
         if (order == null)
         {
-            _logger.LogWarning("Order with Id: {OrderId} not found", request.Id);
+            Log.Error("Order with Id: {OrderId} not found", request.Id);
             throw new Exception("Order with Id: " + request.Id +" not found");
         }
 
