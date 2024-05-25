@@ -16,8 +16,9 @@
 6. [Sample JSON](#sample-json)
    - [Product](#product)
    - [Order](#order)
-7. [Technology Stack](#technology-stack)
-
+7. [Testing](#testing)
+8. [Technology Stack](#technology-stack)
+   
 ## Project Structure
 
 The project follows the Clean Architecture pattern, organized into the following layers:
@@ -31,7 +32,7 @@ The project follows the Clean Architecture pattern, organized into the following
 
 - .NET Core 8 SDK (latest version)
 - Visual Studio or JetBrains Rider
-- SQL Server, MySQL, PostgreSQL, or MongoDB
+- SQL Server.
 - IIS Express (for local development)
 
 ## Setup and Installation
@@ -63,7 +64,7 @@ The project follows the Clean Architecture pattern, organized into the following
 
 ## Usage
 
-To use the API, send HTTP requests to the appropriate endpoints. The base URL is `https://localhost:5001`.
+To use the API, send HTTP requests to the appropriate endpoints.
 
 ## API Endpoints
 
@@ -91,10 +92,10 @@ To use the API, send HTTP requests to the appropriate endpoints. The base URL is
 {
   "productName": "iPhone 14",
   "productDescription": "The latest iPhone with A15 Bionic chip, 5G capability, and improved camera system.",
+  "productImage": "Url.Com",
   "price": 999,
   "merchant": "Apple Store"
 }
-
 
 
 ```
@@ -119,6 +120,10 @@ To use the API, send HTTP requests to the appropriate endpoints. The base URL is
   "deliveryTime": "2024-06-01T10:00:00"
 }
 ```
+## Testing
+
+You can test the API endpoints using Swagger. Once the project is running, navigate to `/swagger` in your browser (e.g., `http://localhost:5000/swagger`). Swagger provides a user-friendly interface for interacting with the API, making it easy to send requests and view responses without needing a separate tool.
+
 ## Technology Stack
 
 - **.NET Core 8**: Framework for building the API.
