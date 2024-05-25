@@ -3,21 +3,20 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
 VisualStudioVersion = 17.0.31903.59
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MoneyFellows.ProductOrder.API", "MoneyFellows.ProductOrder.API\MoneyFellows.ProductOrder.API.csproj", "{7E4D4D65-8C7A-476C-8730-FF3752082CA9}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MoneyFellows.ProductOrder.API", "MoneyFellows.ProductOrder.API\MoneyFellows.ProductOrder.API.csproj", "{7E4D4D65-8C7A-476C-8730-FF3752082CA9}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MoneyFellows.ProductOrder.Application", "MoneyFellows.ProductOrder.Application\MoneyFellows.ProductOrder.Application.csproj", "{BCD56774-A87E-415C-AA70-C0F6C1C4D48D}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MoneyFellows.ProductOrder.Application", "MoneyFellows.ProductOrder.Application\MoneyFellows.ProductOrder.Application.csproj", "{BCD56774-A87E-415C-AA70-C0F6C1C4D48D}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MoneyFellows.ProductOrder.Core", "MoneyFellows.ProductOrder.Core\MoneyFellows.ProductOrder.Core.csproj", "{3BACFECC-14E5-4C0E-93A1-BCF0A1355D4D}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MoneyFellows.ProductOrder.Core", "MoneyFellows.ProductOrder.Core\MoneyFellows.ProductOrder.Core.csproj", "{3BACFECC-14E5-4C0E-93A1-BCF0A1355D4D}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MoneyFellows.ProductOrder.Infrastructure", "MoneyFellows.ProductOrder.Infrastructure\MoneyFellows.ProductOrder.Infrastructure.csproj", "{6697DE2B-85E7-475C-8969-264BBF5F60FC}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MoneyFellows.ProductOrder.Infrastructure", "MoneyFellows.ProductOrder.Infrastructure\MoneyFellows.ProductOrder.Infrastructure.csproj", "{6697DE2B-85E7-475C-8969-264BBF5F60FC}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MoneyFellows.ProductOrder.UnitTests", "MoneyFellows.ProductOrder.UnitTests\MoneyFellows.ProductOrder.UnitTests.csproj", "{5315F655-A116-4F09-A901-4D23716AABC8}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
 		Release|Any CPU = Release|Any CPU
-	EndGlobalSection
-	GlobalSection(SolutionProperties) = preSolution
-		HideSolutionNode = FALSE
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
 		{7E4D4D65-8C7A-476C-8730-FF3752082CA9}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
@@ -36,5 +35,12 @@ Global
 		{6697DE2B-85E7-475C-8969-264BBF5F60FC}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{6697DE2B-85E7-475C-8969-264BBF5F60FC}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{6697DE2B-85E7-475C-8969-264BBF5F60FC}.Release|Any CPU.Build.0 = Release|Any CPU
+		{5315F655-A116-4F09-A901-4D23716AABC8}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{5315F655-A116-4F09-A901-4D23716AABC8}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{5315F655-A116-4F09-A901-4D23716AABC8}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{5315F655-A116-4F09-A901-4D23716AABC8}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
 	EndGlobalSection
 EndGlobal
