@@ -1,8 +1,6 @@
 using FluentValidation;
-using System;
-using System.Collections.Generic;
 
-namespace MoneyFellows.ProductOrder.Application.Orders.Commands
+namespace MoneyFellows.ProductOrder.Application.Orders.Commands.CreateOrderCommand
 {
     public class CreateOrderCommandValidator : AbstractValidator<CreateOrderCommand>
     {
@@ -26,15 +24,24 @@ namespace MoneyFellows.ProductOrder.Application.Orders.Commands
                     od.ChildRules(orderDetail =>
                     {
                         orderDetail.RuleFor(od => od.ProductId)
-                            .NotEmpty().WithMessage("Product ID is required.");
+                            .NotEmpty().WithMessage("Product ID is required.")
+                            .GreaterThan(0).WithMessage("Product ID is required.");
                         orderDetail.RuleFor(od => od.Quantity)
                             .GreaterThan(0).WithMessage("Quantity must be greater than zero.");
                     });
                 });
 
-            RuleFor(x => x.CustomerDetails)
-                .NotNull().WithMessage("Customer Details are required.")
-                .NotEmpty().WithMessage("Customer Details are required.");
+            RuleFor(x => x.Customer.Name)
+                .NotNull().WithMessage("Customer Name are required.")
+                .NotEmpty().WithMessage("Customer Name are required.");
+
+            RuleFor(x => x.Customer.ContactNumber)
+                .NotNull().WithMessage("Customer Phone are required.")
+                .NotEmpty().WithMessage("Customer Phone are required.");
+
+            RuleFor(x => x.Customer.Email)
+                .NotNull().WithMessage("Customer Email are required.")
+                .NotEmpty().WithMessage("Customer Email are required.");
 
             RuleFor(x => x.DeliveryTime)
                 .NotNull().WithMessage("Delivery Time is required.")
