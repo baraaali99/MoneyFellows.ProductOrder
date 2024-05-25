@@ -2,6 +2,9 @@ using Asp.Versioning;
 using MediatR;
 using Microsoft.AspNetCore.Mvc;
 using MoneyFellows.ProductOrder.Application.Products.Commands;
+using MoneyFellows.ProductOrder.Application.Products.Commands.CreateProductCommand;
+using MoneyFellows.ProductOrder.Application.Products.Commands.DeleteProductCommand;
+using MoneyFellows.ProductOrder.Application.Products.Commands.UpdateProductCommand;
 using MoneyFellows.ProductOrder.Application.Products.Queries;
 
 namespace MoneyFellows.ProductOrder.API.Controllers;
@@ -19,16 +22,10 @@ public class ProductController : ControllerBase
 
     [HttpGet]
     [ApiVersion("1")]
-    public async Task<IActionResult> GetProducts([FromQuery] int pageNumber = 1, [FromQuery] int pageSize = 20)
+    public async Task<IActionResult> GetProducts([FromQuery] GetProductsListQuery getProductsListQuery)
     {
-        _logger.LogInformation("Fetching products with pageNumber: {pageNumber}, pageSize: {pageSize}", pageNumber, pageSize);
-
-        var getProductListQuery = new GetProductsListQuery
-        {
-            PageNumber = pageNumber,
-            PageSize = pageSize,
-        };
-        var products = await _mediator.Send(getProductListQuery);
+        _logger.LogInformation("Fetching products with pageNumber: {pageNumber}, pageSize: {pageSize}", getProductsListQuery.PageNumber, getProductsListQuery.PageSize);
+        var products = await _mediator.Send(getProductsListQuery);
         _logger.LogInformation("Fetched {productCount} products", products.Items.Count());
         return Ok(products);
     }
@@ -58,14 +55,13 @@ public class ProductController : ControllerBase
         return Ok(product);
     }
 
-    [HttpPut("{id}")]
     [ApiVersion("1")]
-    public async Task<IActionResult> UpdateProduct(int id, [FromBody] UpdateProductCommand updateProductCommand)
+    [HttpPut]
+    public async Task<IActionResult> UpdateProduct([FromBody] UpdateProductCommand updateProductCommand)
     {
-        _logger.LogInformation("Updating product with id: {id}", id);
-        updateProductCommand.Id = id;
+        _logger.LogInformation("Updating product with id: {id}", updateProductCommand.Id);
         await _mediator.Send(updateProductCommand);
-        _logger.LogInformation("Product with id: {id} updated successfully", id);
+        _logger.LogInformation("Product with id: {id} updated successfully", updateProductCommand.Id);
         return Ok();
     }
 
