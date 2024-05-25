@@ -1,4 +1,5 @@
 ﻿using Serilog;
+using System.Net;
 
 namespace MoneyFellows.ProductOrder.API.Infrastructure.Middlewares
 {
@@ -21,6 +22,7 @@ namespace MoneyFellows.ProductOrder.API.Infrastructure.Middlewares
             catch (Exception ex)
             {
                 HandleException(ex);
+                context.Response.StatusCode = (int)HttpStatusCode.InternalServerError;
             }
         }
 
