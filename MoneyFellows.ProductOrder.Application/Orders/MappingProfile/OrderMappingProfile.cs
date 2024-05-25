@@ -2,7 +2,7 @@ using AutoMapper;
 using MoneyFellows.ProductOrder.Application.Orders.Commands;
 using MoneyFellows.ProductOrder.Application.Orders.Dtos;
 using MoneyFellows.ProductOrder.Core.Models;
-using OrderDetails = MoneyFellows.ProductOrder.Core.Models.OrderDetails;
+using OrderDetail = MoneyFellows.ProductOrder.Core.Models.OrderDetail;
 
 namespace MoneyFellows.ProductOrder.Application.Orders.MappingProfile;
 
@@ -10,11 +10,10 @@ public class OrderMappingProfile : Profile
 {
     public OrderMappingProfile()
     {
-        CreateMap<CreateOrderCommand, Order>();
+        CreateMap<CreateOrderCommand, Product>();
         CreateMap<Order, GetOrdersListQueryOutputDtoItem>()
-            .ForMember(dest => dest.OrderDetails, opt => opt.MapFrom(src => src.OrderDetails))
-            .ForMember(dest => dest.CustomerDetails, opt => opt.MapFrom(src => src.CustomerDetails));
-        CreateMap<OrderDetails, GetOrderDetailsDto>();
+            .ForMember(dest => dest.OrderDetails, opt => opt.MapFrom(src => src.OrderDetails));
+        CreateMap<OrderDetail, GetOrderDetailsDto>();
         CreateMap<Order, GetOrderbyIdQueryDto>();
 
     }
