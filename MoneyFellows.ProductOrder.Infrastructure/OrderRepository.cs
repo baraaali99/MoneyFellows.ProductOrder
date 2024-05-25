@@ -13,11 +13,11 @@ public class OrderRepository : IOrderRepository
     {
         _dbContext = dbContext;
     }
-    public async Task<Order?> GetByIdAsync(Guid id)
+    public async Task<Order?> GetByIdAsync(int id)
     {
         return await _dbContext.Orders.
             Include(o => o.OrderDetails).
-            Include(c => c.CustomerDetails)
+            Include(c => c.Customer)
             .FirstOrDefaultAsync(o => o.Id == id);
     }
 
@@ -26,7 +26,7 @@ public class OrderRepository : IOrderRepository
         return await _dbContext.Orders
             .Include(o => o.OrderDetails)
             .ThenInclude(od => od.Product)
-            .Include(o => o.CustomerDetails)
+            .Include(o => o.Customer)
             .Skip((pageNumber - 1) * pageSize)
             .Take(pageSize)
             .ToListAsync();
@@ -44,7 +44,7 @@ public class OrderRepository : IOrderRepository
         await _dbContext.SaveChangesAsync();
     }
 
-    public async Task DeleteAsync(Guid id)
+    public async Task DeleteAsync(int id)
     {
         var order = await _dbContext.Orders.FirstOrDefaultAsync(o => o.Id == id);
         if (order != null)
@@ -54,7 +54,7 @@ public class OrderRepository : IOrderRepository
         }
     }
 
-    public async Task<bool> AnyAsync(Expression<Func<Order, bool>> predicate, Guid productId)
+    public async Task<bool> AnyAsync(Expression<Func<Order, bool>> predicate, int productId)
     {
         return await _dbContext.Orders
             .Where(predicate)

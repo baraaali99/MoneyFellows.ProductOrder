@@ -2,13 +2,12 @@ using AutoMapper;
 using MediatR;
 using Microsoft.Extensions.Logging;
 using MoneyFellows.ProductOrder.Core.Interfaces;
-using MoneyFellows.ProductOrder.Core.Models;
 
 namespace MoneyFellows.ProductOrder.Application.Products.Commands;
 
 public class UpdateProductCommand : IRequest
 {
-    public Guid Id { get; set; }
+    public int Id { get; set; }
     public string ProductName { get; set; } = string.Empty;
     public string ProductDescription { get; set; } = string.Empty;
 

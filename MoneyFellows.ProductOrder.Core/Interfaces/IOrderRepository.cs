@@ -5,10 +5,10 @@ namespace MoneyFellows.ProductOrder.Core.Interfaces;
 
 public interface IOrderRepository
 {
-    Task<Order?> GetByIdAsync(Guid id);
+    Task<Order?> GetByIdAsync(int id);
     Task<IEnumerable<Order?>> GetAllAsync(int pageNumber, int pageSize);
     Task AddAsync(Order? order);
     Task UpdateAsync(Order? order);
-    Task DeleteAsync(Guid id);
-    Task<bool> AnyAsync(Expression<Func<Order, bool>> predicate, Guid productId);
+    Task DeleteAsync(int id);
+    Task<bool> AnyAsync(Expression<Func<Order, bool>> predicate, int productId);
 }

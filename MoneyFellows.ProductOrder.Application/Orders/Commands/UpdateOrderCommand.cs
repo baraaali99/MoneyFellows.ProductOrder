@@ -10,11 +10,11 @@ namespace MoneyFellows.ProductOrder.Application.Orders.Commands;
 
 public class UpdateOrderCommand : IRequest
 {
-    public Guid Id { get; set; }
+    public int Id { get; set; }
     public string DeliveryAddress { get; set; }
     public decimal TotalCost { get; set; }
     public List<CommandsOrderDetailsDto> OrderDetails { get; set; }
-    public CustomerDetails CustomerDetails { get; set; }
+    public Customer CustomerDetails { get; set; }
     public DateTime DeliveryTime { get; set; }
 }
 

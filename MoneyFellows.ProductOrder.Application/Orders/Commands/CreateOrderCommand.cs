@@ -11,16 +11,16 @@ public class CreateOrderCommand : IRequest
     public string DeliveryAddress { get; set; }
     public decimal TotalCost { get; set; }
     public List<CommandsOrderDetailsDto> OrderDetails { get; set; }
-    public CustomerDetails CustomerDetails { get; set; }
+    public Customer CustomerDetails { get; set; }
     public DateTime DeliveryTime { get; set; }
 }
 
 public class OrderDetails
 {
-    public Guid Id { get; set; }
-    public Guid OrderId { get; set; }
+    public int Id { get; set; }
+    public int OrderId { get; set; }
     public Order Order { get; set; }
-    public Guid ProductId { get; set; }
+    public int ProductId { get; set; }
     public Product Product { get; set; }
     public int Quantity { get; set; }
 }

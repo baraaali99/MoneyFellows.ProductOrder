@@ -6,7 +6,7 @@ namespace MoneyFellows.ProductOrder.Application.Products.Commands;
 
 public class DeleteProductCommand : IRequest
 {
-    public Guid Id { get; set; }
+    public int Id { get; set; }
     
 }
 

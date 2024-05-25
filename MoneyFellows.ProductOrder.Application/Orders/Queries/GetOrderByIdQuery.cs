@@ -8,9 +8,9 @@ namespace MoneyFellows.ProductOrder.Application.Orders.Queries;
 
 public class GetOrderByIdQuery : IRequest<GetOrderbyIdQueryDto>
 {
-    public Guid Id { get; set; }
+    public int Id { get; set; }
 
-    public GetOrderByIdQuery(Guid id)
+    public GetOrderByIdQuery(int id)
     {
         Id = id;
     }

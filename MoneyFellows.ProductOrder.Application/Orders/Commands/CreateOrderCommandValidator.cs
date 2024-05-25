@@ -26,8 +26,7 @@ namespace MoneyFellows.ProductOrder.Application.Orders.Commands
                     od.ChildRules(orderDetail =>
                     {
                         orderDetail.RuleFor(od => od.ProductId)
-                            .NotEmpty().WithMessage("Product ID is required.")
-                            .NotEqual(Guid.Empty).WithMessage("Product ID must be a valid GUID.");
+                            .NotEmpty().WithMessage("Product ID is required.");
                         orderDetail.RuleFor(od => od.Quantity)
                             .GreaterThan(0).WithMessage("Quantity must be greater than zero.");
                     });

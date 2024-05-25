@@ -4,7 +4,7 @@ namespace MoneyFellows.ProductOrder.Core.Models;
 
 public class Product
 {
-    public Guid Id { get; set; }
+    public int Id { get; set; }
     [Required]
     [StringLength(100)]
     [RegularExpression(@"^[a-zA-Z0-9\s]*$")]

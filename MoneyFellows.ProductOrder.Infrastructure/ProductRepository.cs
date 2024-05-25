@@ -14,7 +14,7 @@ public class ProductRepository : IProductRepository
     {
         this._dbContext = _dbContext;
     }
-    public async Task<Product?> GetByIdAsync(Guid id)
+    public async Task<Product?> GetByIdAsync(int id)
     {
         return await _dbContext.Products.FirstOrDefaultAsync(p => p.Id == id);
     }
@@ -36,7 +36,7 @@ public class ProductRepository : IProductRepository
         await _dbContext.SaveChangesAsync();
     }
 
-    public async Task DeleteAsync(Guid id)
+    public async Task DeleteAsync(int id)
     {
         var product = await _dbContext.Products.FirstOrDefaultAsync(p => p.Id == id);
         if (product != null)

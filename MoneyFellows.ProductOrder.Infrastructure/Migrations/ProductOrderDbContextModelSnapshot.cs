@@ -22,37 +22,41 @@ namespace MoneyFellows.ProductOrder.Infrastructure.Migrations
 
             SqlServerModelBuilderExtensions.UseIdentityColumns(modelBuilder);
 
-            modelBuilder.Entity("MoneyFellows.ProductOrder.Core.Models.CustomerDetails", b =>
+            modelBuilder.Entity("MoneyFellows.ProductOrder.Core.Models.Customer", b =>
                 {
-                    b.Property<Guid>("Id")
+                    b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("uniqueidentifier");
+                        .HasColumnType("int");
 
-                    b.Property<string>("contactNumber")
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+
+                    b.Property<string>("ContactNumber")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<string>("email")
+                    b.Property<string>("Email")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<string>("name")
+                    b.Property<string>("Name")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.HasKey("Id");
 
-                    b.ToTable("CustomerDetailsEnumerable");
+                    b.ToTable("Customers");
                 });
 
             modelBuilder.Entity("MoneyFellows.ProductOrder.Core.Models.Order", b =>
                 {
-                    b.Property<Guid>("Id")
+                    b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("uniqueidentifier");
+                        .HasColumnType("int");
 
-                    b.Property<Guid>("CustomerDetailsId")
-                        .HasColumnType("uniqueidentifier");
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+
+                    b.Property<int>("CustomerId")
+                        .HasColumnType("int");
 
                     b.Property<string>("DeliveryAddress")
                         .IsRequired()
@@ -66,22 +70,24 @@ namespace MoneyFellows.ProductOrder.Infrastructure.Migrations
 
                     b.HasKey("Id");
 
-                    b.HasIndex("CustomerDetailsId");
+                    b.HasIndex("CustomerId");
 
                     b.ToTable("Orders");
                 });
 
-            modelBuilder.Entity("MoneyFellows.ProductOrder.Core.Models.OrderDetails", b =>
+            modelBuilder.Entity("MoneyFellows.ProductOrder.Core.Models.OrderDetail", b =>
                 {
-                    b.Property<Guid>("Id")
+                    b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("uniqueidentifier");
+                        .HasColumnType("int");
 
-                    b.Property<Guid>("OrderId")
-                        .HasColumnType("uniqueidentifier");
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
 
-                    b.Property<Guid>("ProductId")
-                        .HasColumnType("uniqueidentifier");
+                    b.Property<int>("OrderId")
+                        .HasColumnType("int");
+
+                    b.Property<int>("ProductId")
+                        .HasColumnType("int");
 
                     b.Property<int>("Quantity")
                         .HasColumnType("int");
@@ -90,17 +96,18 @@ namespace MoneyFellows.ProductOrder.Infrastructure.Migrations
 
                     b.HasIndex("OrderId");
 
-                    b.HasIndex("ProductId", "OrderId")
-                        .IsUnique();
+                    b.HasIndex("ProductId");
 
-                    b.ToTable("orderDetails");
+                    b.ToTable("OrderDetails");
                 });
 
             modelBuilder.Entity("MoneyFellows.ProductOrder.Core.Models.Product", b =>
                 {
-                    b.Property<Guid>("Id")
+                    b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("uniqueidentifier");
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
 
                     b.Property<string>("Merchant")
                         .IsRequired()
@@ -125,24 +132,21 @@ namespace MoneyFellows.ProductOrder.Infrastructure.Migrations
 
                     b.HasKey("Id");
 
-                    b.HasIndex("ProductName")
-                        .IsUnique();
-
                     b.ToTable("Products");
                 });
 
             modelBuilder.Entity("MoneyFellows.ProductOrder.Core.Models.Order", b =>
                 {
-                    b.HasOne("MoneyFellows.ProductOrder.Core.Models.CustomerDetails", "CustomerDetails")
+                    b.HasOne("MoneyFellows.ProductOrder.Core.Models.Customer", "Customer")
                         .WithMany()
-                        .HasForeignKey("CustomerDetailsId")
+                        .HasForeignKey("CustomerId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.Navigation("CustomerDetails");
+                    b.Navigation("Customer");
                 });
 
-            modelBuilder.Entity("MoneyFellows.ProductOrder.Core.Models.OrderDetails", b =>
+            modelBuilder.Entity("MoneyFellows.ProductOrder.Core.Models.OrderDetail", b =>
                 {
                     b.HasOne("MoneyFellows.ProductOrder.Core.Models.Order", "Order")
                         .WithMany("OrderDetails")
@@ -153,7 +157,7 @@ namespace MoneyFellows.ProductOrder.Infrastructure.Migrations
                     b.HasOne("MoneyFellows.ProductOrder.Core.Models.Product", "Product")
                         .WithMany()
                         .HasForeignKey("ProductId")
-                        .OnDelete(DeleteBehavior.Restrict)
+                        .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
                     b.Navigation("Order");

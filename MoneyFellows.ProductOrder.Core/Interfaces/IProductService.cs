@@ -8,8 +8,8 @@ namespace MoneyFellows.ProductOrder.Application.IServices;
 public interface IProductService
 {
     Task<IEnumerable<Product>> GetAllProductsAsync();
-    Task<Product> GetProductByIdAsync(Guid id);
+    Task<Product> GetProductByIdAsync(int id);
     Task CreateProductAsync(Product product);
     Task UpdateProductAsync(Product product);
-    Task DeleteProductAsync(Guid id);
+    Task DeleteProductAsync(int id);
 }
