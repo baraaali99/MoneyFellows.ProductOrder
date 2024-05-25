@@ -1,14 +1,12 @@
-using System.Linq.Expressions;
+using Asp.Versioning;
 using MediatR;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.IdentityModel.Tokens;
 using MoneyFellows.ProductOrder.Application.Products.Commands;
 using MoneyFellows.ProductOrder.Application.Products.Queries;
-using MoneyFellows.ProductOrder.Core.Models;
 
 namespace MoneyFellows.ProductOrder.API.Controllers;
 [ApiController]
-[Route("api/v1/products")]
+[Route("api/v{version:apiVersion}/products")]
 public class ProductController : ControllerBase
 {
     private readonly IMediator _mediator;
@@ -20,7 +18,8 @@ public class ProductController : ControllerBase
     }
 
     [HttpGet]
-    public async Task<IActionResult>GetProducts([FromQuery] int pageNumber = 1, [FromQuery] int pageSize = 20)
+    [ApiVersion("1")]
+    public async Task<IActionResult> GetProducts([FromQuery] int pageNumber = 1, [FromQuery] int pageSize = 20)
     {
         _logger.LogInformation("Fetching products with pageNumber: {pageNumber}, pageSize: {pageSize}", pageNumber, pageSize);
 
@@ -33,8 +32,9 @@ public class ProductController : ControllerBase
         _logger.LogInformation("Fetched {productCount} products", products.Items.Count());
         return Ok(products);
     }
-    
+
     [HttpPost]
+    [ApiVersion("1")]
     public async Task<IActionResult> CreateProduct([FromBody] CreateProductCommand createProductCommand)
     {
         _logger.LogInformation("Creating a new product");
@@ -42,9 +42,10 @@ public class ProductController : ControllerBase
         _logger.LogInformation("Product created successfully");
         return Ok();
     }
-    
+
     [HttpGet("{id}")]
-    public async Task<IActionResult> GetProductById(Guid id)
+    [ApiVersion("1")]
+    public async Task<IActionResult> GetProductById(int id)
     {
         _logger.LogInformation("Getting product by id: {id}", id);
         var product = await _mediator.Send(new GetProductByIdQuery(id));
@@ -53,12 +54,13 @@ public class ProductController : ControllerBase
             _logger.LogWarning("Product with id: {id} not found", id);
             return NotFound();
         }
-        _logger.LogInformation( "Product with id: {id} fetched successfully", id);
+        _logger.LogInformation("Product with id: {id} fetched successfully", id);
         return Ok(product);
     }
 
     [HttpPut("{id}")]
-    public async Task<IActionResult> UpdateProduct(Guid id, [FromBody] UpdateProductCommand updateProductCommand)
+    [ApiVersion("1")]
+    public async Task<IActionResult> UpdateProduct(int id, [FromBody] UpdateProductCommand updateProductCommand)
     {
         _logger.LogInformation("Updating product with id: {id}", id);
         updateProductCommand.Id = id;
@@ -68,14 +70,15 @@ public class ProductController : ControllerBase
     }
 
     [HttpDelete("{id}")]
-    public async Task<IActionResult> DeleteProduct(Guid id)
+    [ApiVersion("2")]
+    public async Task<IActionResult> DeleteProduct(int id)
     {
         _logger.LogInformation("Deleting product with id: {id}", id);
         var deleteProductCommand = new DeleteProductCommand()
         {
             Id = id
         };
-        
+
         await _mediator.Send(deleteProductCommand);
         _logger.LogInformation("Product with id: {id} deleted successfully", id);
         return Ok();
