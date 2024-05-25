@@ -92,6 +92,12 @@ public class ProductRepository : IProductRepository
         return await _dbContext.Products.AnyAsync(p => p.ProductName.ToLower().Trim() == productName.ToLower().Trim());
     }
 
+    public async Task<bool> AreProductsExistAsync(List<int> productsIds)
+    {
+        var existingCount = await _dbContext.Products.CountAsync(p => productsIds.Contains(p.Id));
+        return existingCount == productsIds.Count;
+    }
+
     public async Task<bool> IsProductOrderedBeforeAsync(int productId)
     {
         return await _dbContext.OrderDetails.AnyAsync(od => od.ProductId == productId);

@@ -13,5 +13,6 @@ public interface IProductRepository
     Task UpdateAsync(Product product);
     Task DeleteAsync(int id);
     Task<bool> IsProductExistsAsync(string productName);
+    Task<bool> AreProductsExistAsync(List<int> productsIds);
     Task<bool> IsProductOrderedBeforeAsync(int productId);
 }
