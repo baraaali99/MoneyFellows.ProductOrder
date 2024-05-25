@@ -4,7 +4,7 @@ namespace MoneyFellows.ProductOrder.Core.Models;
 
 public class Order
 {   
-    public Guid Id { get; set; }
+    public int Id { get; set; }
     
     [Required]
     [RegularExpression(@"^[a-zA-Z0-9\s]*$")]
@@ -15,10 +15,13 @@ public class Order
     public decimal TotalCost { get; set; }
     
     [Required]
-    public List<OrderDetails> OrderDetails { get; set; }
+    public List<OrderDetail> OrderDetails { get; set; }
     
     [Required]
-    public CustomerDetails CustomerDetails { get; set; }
+    public Customer Customer { get; set; }
+
+    [Required]
+    public int CustomerId { get; set; }
     
     [Required]
     public DateTime DeliveryTime { get; set; }
