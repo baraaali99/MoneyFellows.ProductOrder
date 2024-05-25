@@ -32,7 +32,7 @@ The project follows the Clean Architecture pattern, organized into the following
 
 - .NET Core 8 SDK (latest version)
 - Visual Studio or JetBrains Rider
-- SQL Server, MySQL, PostgreSQL, or MongoDB
+- SQL Server.
 - IIS Express (for local development)
 
 ## Setup and Installation
