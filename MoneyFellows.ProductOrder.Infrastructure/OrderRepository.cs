@@ -21,12 +21,32 @@ public class OrderRepository : IOrderRepository
             .FirstOrDefaultAsync(o => o.Id == id);
     }
 
-    public async Task<IEnumerable<Order?>> GetAllAsync(int pageNumber, int pageSize )
+    public async Task<IEnumerable<Order>> GetAllAsync(int pageNumber, int pageSize,
+        string sortBy, bool sortAscending, string? searchTerm)
     {
-        return await _dbContext.Orders
+        var query = _dbContext.Orders.AsQueryable();
+
+        if (!string.IsNullOrEmpty(searchTerm))
+        {
+            query = query.Where(o => o.DeliveryAddress.ToLower().Contains(searchTerm.Trim().ToLower())
+            || o.Customer.Name.ToLower().Contains(searchTerm.Trim().ToLower()));
+        }
+
+        if (!string.IsNullOrEmpty(sortBy))
+        {
+            if (sortAscending)
+            {
+                query = query.OrderBy(o => EF.Property<object>(o, sortBy));
+            }
+            else
+            {
+                query = query.OrderByDescending(o => EF.Property<object>(o, sortBy));
+            }
+        }
+
+        return await query
             .Include(o => o.OrderDetails)
-            .ThenInclude(od => od.Product)
-            .Include(o => o.Customer)
+            .Include(c => c.Customer)
             .Skip((pageNumber - 1) * pageSize)
             .Take(pageSize)
             .ToListAsync();
@@ -52,13 +72,5 @@ public class OrderRepository : IOrderRepository
             _dbContext.Orders.Remove(order);
             await _dbContext.SaveChangesAsync();
         }
-    }
-
-    public async Task<bool> AnyAsync(Expression<Func<Order, bool>> predicate, int productId)
-    {
-        return await _dbContext.Orders
-            .Where(predicate)
-            .SelectMany(o => o.OrderDetails) // Flatten order details
-            .AnyAsync(od => od.ProductId == productId); // Check if any order detail has the specified product Id
     }
 }
