@@ -63,7 +63,7 @@ The project follows the Clean Architecture pattern, organized into the following
 
 ## Usage
 
-To use the API, send HTTP requests to the appropriate endpoints. The base URL is `https://localhost:5001`.
+To use the API, send HTTP requests to the appropriate endpoints.
 
 ## API Endpoints
 
@@ -91,10 +91,10 @@ To use the API, send HTTP requests to the appropriate endpoints. The base URL is
 {
   "productName": "iPhone 14",
   "productDescription": "The latest iPhone with A15 Bionic chip, 5G capability, and improved camera system.",
+  "productImage": "Url.Com",
   "price": 999,
   "merchant": "Apple Store"
 }
-
 
 
 ```
