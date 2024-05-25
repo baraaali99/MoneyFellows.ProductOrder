@@ -3,7 +3,7 @@ using MediatR;
 using Microsoft.Extensions.Logging;
 using MoneyFellows.ProductOrder.Core.Interfaces;
 
-namespace MoneyFellows.ProductOrder.Application.Products.Commands;
+namespace MoneyFellows.ProductOrder.Application.Products.Commands.UpdateProductCommand;
 
 public class UpdateProductCommand : IRequest
 {
@@ -34,13 +34,20 @@ public class UpdateProductCommandHandler : IRequestHandler<UpdateProductCommand>
     {
         _logger.LogInformation("Attempting to update product with Id: {ProductId}", request.Id);
         var product = await _productRepository.GetByIdAsync(request.Id);
+
         if (product == null)
         {
             _logger.LogWarning("Product with Id: {ProductId} not found", request.Id);
             throw new Exception("can't find Product with Id = " + request.Id);
         }
+
+        if (product.ProductName != request.ProductName && await _productRepository.IsProductExistsAsync(request.ProductName))
+        {
+            _logger.LogWarning("Product with name: {ProductName} already exists", request.ProductName);
+            throw new Exception("Product with name: " + request.ProductName + " already exists");
+        }
+
         _mapper.Map(request, product);
-        product.Id = request.Id;
         await _productRepository.UpdateAsync(product);
         return Unit.Value;
     }

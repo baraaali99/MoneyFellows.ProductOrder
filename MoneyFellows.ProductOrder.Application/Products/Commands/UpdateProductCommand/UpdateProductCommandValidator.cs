@@ -1,11 +1,14 @@
 using FluentValidation;
 
-namespace MoneyFellows.ProductOrder.Application.Products.Commands;
+namespace MoneyFellows.ProductOrder.Application.Products.Commands.UpdateProductCommand;
 
 public class UpdateProductCommandValidator : AbstractValidator<UpdateProductCommand>
 {
     public UpdateProductCommandValidator()
     {
+        RuleFor(x => x.Id)
+            .NotEmpty().WithMessage("Product Id is required.")
+            .GreaterThan(0).WithMessage("Product Id must be greater than zero.");
         RuleFor(x => x.ProductName)
             .NotNull().WithMessage("Product Name is required.")
             .NotEmpty().WithMessage("Product Name is required.")

@@ -3,7 +3,7 @@ using MediatR;
 using MoneyFellows.ProductOrder.Core.Interfaces;
 using MoneyFellows.ProductOrder.Core.Models;
 
-namespace MoneyFellows.ProductOrder.Application.Products.Commands;
+namespace MoneyFellows.ProductOrder.Application.Products.Commands.CreateProductCommand;
 
 public class CreateProductCommand : IRequest
 {
@@ -29,6 +29,11 @@ public class CreateProductCommandHandler : IRequestHandler<CreateProductCommand>
     }
     public async Task<Unit> Handle(CreateProductCommand request, CancellationToken cancellationToken)
     {
+        if (await _productRepository.IsProductExistsAsync(request.ProductName))
+        {
+            throw new Exception($"Product with name {request.ProductName} already exists");
+        }
+
         var product = _mapper.Map<Product>(request);
         await _productRepository.AddAsync(product);
         return Unit.Value;

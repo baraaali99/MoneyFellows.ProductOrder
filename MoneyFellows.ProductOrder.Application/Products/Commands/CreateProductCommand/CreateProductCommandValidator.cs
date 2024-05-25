@@ -1,6 +1,6 @@
 using FluentValidation;
 
-namespace MoneyFellows.ProductOrder.Application.Products.Commands;
+namespace MoneyFellows.ProductOrder.Application.Products.Commands.CreateProductCommand;
 
 public class CreateProductCommandValidator : AbstractValidator<CreateProductCommand>
 {
