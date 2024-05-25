@@ -16,7 +16,9 @@ public class ProductOrderDbContext : DbContext
         // for scaffolding
     }
     public  DbSet<Product> Products { get; set; }
-    public  DbSet<Order> Orders { get; set; }
+    public  DbSet<Order?> Orders { get; set; }
+    public DbSet<OrderDetails> orderDetails { get; set; }
+    public DbSet<CustomerDetails> CustomerDetailsEnumerable { get; set; }
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
         // Product configuration

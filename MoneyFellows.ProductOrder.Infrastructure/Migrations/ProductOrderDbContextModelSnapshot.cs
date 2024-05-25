@@ -22,16 +22,37 @@ namespace MoneyFellows.ProductOrder.Infrastructure.Migrations
 
             SqlServerModelBuilderExtensions.UseIdentityColumns(modelBuilder);
 
+            modelBuilder.Entity("MoneyFellows.ProductOrder.Core.Models.CustomerDetails", b =>
+                {
+                    b.Property<Guid>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<string>("contactNumber")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("email")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("name")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("CustomerDetailsEnumerable");
+                });
+
             modelBuilder.Entity("MoneyFellows.ProductOrder.Core.Models.Order", b =>
                 {
                     b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("uniqueidentifier");
 
-                    b.Property<string>("CustomerDetails")
-                        .IsRequired()
-                        .HasMaxLength(500)
-                        .HasColumnType("nvarchar(500)");
+                    b.Property<Guid>("CustomerDetailsId")
+                        .HasColumnType("uniqueidentifier");
 
                     b.Property<string>("DeliveryAddress")
                         .IsRequired()
@@ -44,6 +65,8 @@ namespace MoneyFellows.ProductOrder.Infrastructure.Migrations
                         .HasColumnType("decimal(18,2)");
 
                     b.HasKey("Id");
+
+                    b.HasIndex("CustomerDetailsId");
 
                     b.ToTable("Orders");
                 });
@@ -70,7 +93,7 @@ namespace MoneyFellows.ProductOrder.Infrastructure.Migrations
                     b.HasIndex("ProductId", "OrderId")
                         .IsUnique();
 
-                    b.ToTable("OrderDetails");
+                    b.ToTable("orderDetails");
                 });
 
             modelBuilder.Entity("MoneyFellows.ProductOrder.Core.Models.Product", b =>
@@ -93,7 +116,6 @@ namespace MoneyFellows.ProductOrder.Infrastructure.Migrations
                         .HasColumnType("nvarchar(500)");
 
                     b.Property<byte[]>("ProductImage")
-                        .IsRequired()
                         .HasColumnType("varbinary(max)");
 
                     b.Property<string>("ProductName")
@@ -107,6 +129,17 @@ namespace MoneyFellows.ProductOrder.Infrastructure.Migrations
                         .IsUnique();
 
                     b.ToTable("Products");
+                });
+
+            modelBuilder.Entity("MoneyFellows.ProductOrder.Core.Models.Order", b =>
+                {
+                    b.HasOne("MoneyFellows.ProductOrder.Core.Models.CustomerDetails", "CustomerDetails")
+                        .WithMany()
+                        .HasForeignKey("CustomerDetailsId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("CustomerDetails");
                 });
 
             modelBuilder.Entity("MoneyFellows.ProductOrder.Core.Models.OrderDetails", b =>
